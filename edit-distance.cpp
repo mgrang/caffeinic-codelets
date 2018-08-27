@@ -35,7 +35,7 @@ ED editDistance(string s, string t) {
         else if (D[i][j] == D[i][j - 1] + 1)
           E += 'D';
         else
-        E += 'A';
+          E += 'A';
       }
     }
   }
