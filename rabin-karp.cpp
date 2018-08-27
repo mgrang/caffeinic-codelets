@@ -47,5 +47,5 @@ int strStr(string haystack, string needle) {
 }
 
 int main() {
-  cout << "### Output: " << strStr("mississippi", "sipp") << "\n";
+  cout << "Output: " << strStr("mississippi", "sipp") << "\n";
 }
