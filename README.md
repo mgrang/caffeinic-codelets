@@ -4,12 +4,20 @@
 Implementations of various algorithms and data structures in C++.
 
 ### Usage
-To initialize a new C++ program:
-``
-./init <src_file>.cpp
-``
+Initialize a new C++ program:
+```
+./init foobar.cpp
 
-To compile and run a program:
-``
-./bld <src_file>.cpp
-``
+cat foobar.cpp
+
+#include <iostream>
+using namespace std;
+
+int main() {
+}
+```
+
+Compile and run the program:
+```
+./bld foobar.cpp
+```
