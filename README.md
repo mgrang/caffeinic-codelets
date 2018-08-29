@@ -7,9 +7,11 @@ Implementations of various algorithms and data structures in C++.
 Initialize a new C++ program:
 ```
 ./init foobar.cpp
+```
 
-cat foobar.cpp
+This will create foobar.cpp with the following skeleton code:
 
+```
 #include <iostream>
 using namespace std;
 
@@ -21,3 +23,5 @@ Compile and run the program:
 ```
 ./bld foobar.cpp
 ```
+
+This will invoke the system g++ compiler to build your program.
