@@ -1,10 +1,11 @@
-filename=$1
-if [[ -z $filename ]]; then
-  filename=`ls *.cpp | tail -1`
+if [[ -z $1 ]]; then
+  echo "Specify source file"
+  exit 1
 fi
 
-echo "Building $filename:"
-g++ -std=c++11 $filename
+src=$1
+echo "Building $src"
+g++ -std=c++11 $src
 
 if [[ $? -eq 0 ]]; then
   ./a.out
