@@ -7,6 +7,44 @@ typedef struct {
   string str;
 } LCS;
 
+int lcs_opt(string s, string t) {
+  int n = s.length();
+  int m = t.length();
+  int size = n < m ? n : m;
+
+  int row0[size] = {0};
+  int row1[size] = {0};
+
+  int *prev = row0;
+  int *curr = row1;
+
+  int maxLen = 0;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < m; ++j) {
+      if (s[i] != t[j]) {
+        *curr = 0;
+        continue;
+      }
+
+      *curr = 1;
+      if (prev != row0 && prev != row1)
+        *curr += *(prev - 1);
+
+      if (*curr > maxLen)
+        maxLen = *curr;
+
+      ++curr;
+      ++prev;
+    }
+
+    int *tmp = curr;
+    curr = prev;
+    prev = tmp;
+  }
+
+  return maxLen;
+}
+
 LCS lcs(string s, string t) {
   int n = s.length();
   int m = t.length();
@@ -57,4 +95,6 @@ int main() {
   LCS res = lcs(s, t);
   cout << "LCS len: " << res.len << "\n";
   cout << "LCS str: " << res.str << "\n";
+
+  cout << "LCS optimized len: " << lcs_opt(s, t) << "\n";
 }
