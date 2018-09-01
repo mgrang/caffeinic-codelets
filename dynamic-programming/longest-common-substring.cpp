@@ -10,7 +10,7 @@ typedef struct {
 int lcs_opt(string s, string t) {
   int n = s.length();
   int m = t.length();
-  int size = n < m ? n : m;
+  int size = n > m ? n : m;
 
   int row0[size] = {0};
   int row1[size] = {0};
@@ -18,30 +18,33 @@ int lcs_opt(string s, string t) {
   int *prev = row0;
   int *curr = row1;
 
+  bool flag = false;
   int maxLen = 0;
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
-      if (s[i] != t[j]) {
+      if (s[i] != t[j])
         *curr = 0;
-        continue;
+      else {
+        *curr = 1;
+        if (prev != row0 && prev != row1)
+          *curr += *(prev - 1);
+
+        if (*curr > maxLen)
+          maxLen = *curr;
       }
-
-      *curr = 1;
-      if (prev != row0 && prev != row1)
-        *curr += *(prev - 1);
-
-      if (*curr > maxLen)
-        maxLen = *curr;
-
       ++curr;
       ++prev;
     }
-
-    int *tmp = curr;
-    curr = prev;
-    prev = tmp;
+    if (flag) {
+      flag = false;
+      curr = row1;
+      prev = row0;
+    } else {
+      flag = true;
+      curr = row0;
+      prev = row1;
+    }
   }
-
   return maxLen;
 }
 
@@ -52,10 +55,10 @@ LCS lcs(string s, string t) {
   int T[n + 1][m + 1];
 
   for (int i = 0; i <= n; ++i)
-    T[0][i] = 0;
+    T[i][0] = 0;
 
   for (int i = 0; i <= m; ++i)
-    T[i][0] = 0;
+    T[0][i] = 0;
 
   int maxLen = 0;
   int maxi, maxj;
@@ -88,8 +91,8 @@ LCS lcs(string s, string t) {
 }
 
 int main() {
-  string s = "typograph";
-  string t = "photograph";
+  string s = "photograph";
+  string t = "typograph";
 
   cout << "Input strings: " << s << ", " << t << "\n";
   LCS res = lcs(s, t);
