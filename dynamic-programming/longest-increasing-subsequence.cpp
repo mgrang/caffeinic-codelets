@@ -3,12 +3,7 @@
 #include <vector>
 using namespace std;
 
-typedef struct {
-  int len;
-  vector<int> seq;
-} LIS;
-
-LIS lis(vector<int> nums) {
+std::pair<int, std::vector<int>> lis(vector<int> nums) {
   vector<int> lens(nums.size());
   vector<int> preds(nums.size());
 
@@ -46,7 +41,7 @@ LIS lis(vector<int> nums) {
     maxIdx = preds[maxIdx];
   }
 
-  return LIS {maxLen, seq};
+  return std::make_pair(maxLen, seq);
 }
 
 int main() {
@@ -57,11 +52,11 @@ int main() {
     cout << i << " ";
   cout << "\n";
 
-  LIS res = lis(nums);
+  auto res = lis(nums);
 
-  cout << "LIS Length: " << res.len << "\n";
+  cout << "LIS Length: " << res.first << "\n";
   cout << "LIS: ";
-  for (auto i : res.seq)
+  for (auto i : res.second)
     cout << i << " ";
   cout << "\n";
 }

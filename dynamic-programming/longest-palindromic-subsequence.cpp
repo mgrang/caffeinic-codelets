@@ -69,7 +69,7 @@ int main() {
   string s = "xzyzaybx";
   cout << "Input: " << s << "\n";
 
-  std::pair<int, string> p = lps(s);
+  auto p = lps(s);
 
   cout << "LPS len: " << p.first << "\n";
   cout << "LPS: " << p.second << "\n";

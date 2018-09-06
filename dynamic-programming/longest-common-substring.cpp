@@ -2,11 +2,6 @@
 #include <string>
 using namespace std;
 
-typedef struct {
-  int len;
-  string str;
-} LCS;
-
 int lcs_opt(string s, string t) {
   int n = s.length();
   int m = t.length();
@@ -48,7 +43,7 @@ int lcs_opt(string s, string t) {
   return maxLen;
 }
 
-LCS lcs(string s, string t) {
+std::pair<int, string> lcs(string s, string t) {
   int n = s.length();
   int m = t.length();
 
@@ -87,7 +82,7 @@ LCS lcs(string s, string t) {
     --maxj;
   }
 
-  return LCS {maxLen, maxStr};
+  return std::make_pair(maxLen, maxStr);
 }
 
 int main() {
@@ -95,9 +90,9 @@ int main() {
   string t = "typograph";
 
   cout << "Input strings: " << s << ", " << t << "\n";
-  LCS res = lcs(s, t);
-  cout << "LCS len: " << res.len << "\n";
-  cout << "LCS str: " << res.str << "\n";
+  auto res = lcs(s, t);
+  cout << "LCS len: " << res.first << "\n";
+  cout << "LCS str: " << res.second << "\n";
 
   cout << "LCS optimized len: " << lcs_opt(s, t) << "\n";
 }

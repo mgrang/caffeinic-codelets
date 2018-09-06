@@ -3,12 +3,7 @@
 #include <string>
 using namespace std;
 
-typedef struct {
-  int D;
-  string E;
-} ED;
-
-ED editDistance(string s, string t) {
+std::pair<int, string> editDistance(string s, string t) {
   int n = s.length();
   int m = t.length();
 
@@ -47,7 +42,7 @@ ED editDistance(string s, string t) {
   while (j-- > 0)
     E += 'A';
 
-  return ED {D[n][m], E};
+  return std::make_pair(D[n][m], E);
 }
 
 int main() {
@@ -71,7 +66,7 @@ int main() {
     return 0;
   }
 
-  ED ed = editDistance(s, t);
-  cout << "Edit distance: " << ed.D << "\n";
-  cout << "Edit sequence: " << ed.E << "\n";
+  auto ed = editDistance(s, t);
+  cout << "Edit distance: " << ed.first << "\n";
+  cout << "Edit sequence: " << ed.second << "\n";
 }

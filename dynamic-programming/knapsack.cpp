@@ -2,12 +2,8 @@
 #include <iostream>
 using namespace std;
 
-typedef struct {
-  int maxVal;
-  std::vector<int> items;
-} KP;
-
-KP knapsack(int target, std::vector<int> wts, std::vector<int> vals) {
+std::pair<int, std::vector<int>>
+knapsack(int target, std::vector<int> wts, std::vector<int> vals) {
   int T[wts.size() + 1][target + 1];
 
   for (int i = 0; i <= wts.size(); ++i) {
@@ -35,7 +31,7 @@ KP knapsack(int target, std::vector<int> wts, std::vector<int> vals) {
     --i;
   }
 
-  return KP {T[wts.size()][target], items};
+  return std::make_pair(T[wts.size()][target], items);
 }
 
 int main() {
@@ -43,11 +39,11 @@ int main() {
   std::vector<int> wts = {1, 3, 4, 5};
   std::vector<int> vals = {1, 4, 5, 7};
 
-  KP k = knapsack(target, wts, vals);
+  auto k = knapsack(target, wts, vals);
 
-  cout << "Max val: " << k.maxVal << "\n";
+  cout << "Max val: " << k.first << "\n";
   cout << "Wts.: ";
-  for (auto w : k.items)
+  for (auto w : k.second)
     cout << w << " ";
   cout << "\n";
 }
