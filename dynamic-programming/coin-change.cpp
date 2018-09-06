@@ -6,7 +6,7 @@ using namespace std;
 std::vector<int> coinChange(int target, std::vector<int> coins) {
   // T is unsigned int to guard against integer overflow.
   unsigned int T[target + 1];
-  int U[target + 1];
+  unsigned int U[target + 1];
 
   for (int i = 0; i <= target; ++i) {
     T[i] = std::numeric_limits<int>::max();
