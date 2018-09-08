@@ -23,16 +23,16 @@ std::pair<int, string> lps(string s) {
   int i = 1;
   while (i < t.length()) {
     int currLen = 0;
-
-    int left = i;
-    int right = i;
-
     string currStr;
     if (t[i] != '#')
       currStr = t[i];
 
+    int left = i;
+    int right = i;
+
     while (left > 0 && right < t.length() && t[--left] == t[++right]) {
       ++currLen;
+
       if (t[left] != '#') {
         currStr.insert(currStr.begin(), t[left]);
         currStr += t[right];
