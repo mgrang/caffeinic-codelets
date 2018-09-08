@@ -70,7 +70,7 @@ std::pair<int, string> lps(string s) {
     i = right;
   }
 
-  return std::make_pair(maxLen, maxStr);;
+  return std::make_pair(maxLen, maxStr);
 }
 
 int main() {
