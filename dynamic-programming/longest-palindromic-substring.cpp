@@ -61,7 +61,7 @@ std::pair<int, string> lps(string s) {
       if (P[left] == diff)
         break;
 
-      P[right] =  (P[left] < diff) ? P[left] : diff;
+      P[right] = (P[left] < diff) ? P[left] : diff;
 
       --left;
       ++right;     
