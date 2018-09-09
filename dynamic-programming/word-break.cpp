@@ -10,13 +10,11 @@ bool check(string t, std::unordered_set<string> &dict) {
 
 std::pair<bool, std::vector<string>>
 wordBreak(string s, std::unordered_set<string> &dict) {
-  int n = s.length();
-
-  if (n == 0)
+  if (s.length() == 0)
     return std::make_pair(true, std::vector<string>());
 
   std::unordered_map<int, int> idxMap;
-
+  int n = s.length();
   bool T[n][n];
 
   int start = 0;
@@ -95,6 +93,7 @@ void test(string s, std::unordered_set<string> dict) {
 int main() {
   test("",            {"a", "Rose", "Roses", "are", "red"});
   test("Rosesarered", {"a", "Rose", "Roses", "are", "red"});
+  test("Rosesarered", {"a", "Rose", "are", "red"});
   test("osesarered",  {"a", "Rose", "Roses", "are", "red"});
   test("Roses",       {"Roses"});
 }
