@@ -46,10 +46,7 @@ std::vector<int> subsetSum(int sum, std::vector<int> nums) {
   return subset;
 }
 
-int main() {
-  int sum = 19;
-  std::vector<int> nums {1, 3, 4, 5, 7};
-
+void test(std::vector<int> nums, int sum) {
   cout << "Target sum: " << sum << "\n";
   cout << "Input: ";
   for (auto I : nums)
@@ -58,7 +55,7 @@ int main() {
 
   if (sum == 0) {
     cout << "Subset sum: {}\n";
-    return 0;
+    return;
   }
 
   std::vector<int> S = subsetSum(sum, nums);
@@ -69,4 +66,12 @@ int main() {
   } else
     cout << "Subset sum does not exist";
   cout << "\n";
+}
+
+int main() {
+  test({1, 3, 4, 5, 7}, 19);
+  test({1, 3, 4, 5, 7}, 2);
+  test({1, 1, 1, 1, 1}, 5);
+  test({1, 3, 4, 5, 7}, 100);
+  test({1, 3, 4, 5, 7}, 13);
 }
