@@ -13,9 +13,14 @@ This will create foobar.cpp with the following skeleton code:
 
 ```
 #include <iostream>
+#include <vector>
 using namespace std;
 
+void test() {
+}
+
 int main() {
+  test();
 }
 ```
 
