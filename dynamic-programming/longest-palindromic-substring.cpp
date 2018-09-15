@@ -73,8 +73,7 @@ std::pair<int, string> lps(string s) {
   return std::make_pair(maxLen, maxStr);
 }
 
-int main() {
-  string s = "aibohphobia";
+void test(string s) {
   cout << "Input: " << s << "\n";
 
   std::pair<int, string> res = std::make_pair(0, "");
@@ -83,4 +82,13 @@ int main() {
 
   cout << "LPS len: " << res.first << "\n";
   cout << "LPS str: " << res.second << "\n";
+}
+
+int main() {
+  test("aibohphobia");
+  test("banana");
+  test("malayalam");
+  test("abcdef");
+  test("aaaaaaaa");
+  test("abacadae");
 }
