@@ -85,14 +85,20 @@ std::pair<int, string> lcs(string s, string t) {
   return std::make_pair(maxLen, maxStr);
 }
 
-int main() {
-  string s = "photograph";
-  string t = "typograph";
-
+void test(string s, string t) {
   cout << "Input strings: " << s << ", " << t << "\n";
   auto res = lcs(s, t);
   cout << "LCS len: " << res.first << "\n";
   cout << "LCS str: " << res.second << "\n";
 
   cout << "LCS optimized len: " << lcs_opt(s, t) << "\n";
+}
+
+int main() {
+  test("logarithm", "algorithm");
+  test("abcde", "acde");
+  test("photography", "typography");
+  test("abcd", "xyz");
+  test("aaaaaaaaaaaaa", "a");
+  test("ababa", "babab");
 }
