@@ -14,20 +14,18 @@ int maxArea(std::vector<int> hist) {
 
     while (stack.size() && hist[i] < hist[top]) {
       stack.pop_back();
-      int newTop = stack[stack.size() - 1];
+      int newTop = stack.back();
 
       int currArea;
-      if (stack.size() == 0) {
+      if (stack.size() == 0)
         currArea = hist[top] * i;
-      }
-      else {
+      else
         currArea = hist[top] * (i - newTop - 1);
-      }
 
       if (currArea > maxArea)
         maxArea = currArea;
 
-      top = stack.back();
+      top = newTop;
     }
     stack.push_back(i);
   }
@@ -35,9 +33,7 @@ int maxArea(std::vector<int> hist) {
   return maxArea;
 }
 
-int main() {
-  std::vector<int> hist = {6, 2, 5, 4, 5, 1, 6};
-
+void test(std::vector<int> hist) {
   cout << "Input: ";
   for (auto i : hist)
     cout << i << " ";
@@ -46,3 +42,12 @@ int main() {
   cout << "Max rectangle area: " << maxArea(hist);
   cout << "\n";
 }
+
+int main() {
+  test({6, 2, 5, 4, 5, 1, 6});
+  test({1, 2, 3, 4, 5});
+  test({5, 4, 3, 2, 1});
+  test({1});
+  test({-1, 0, -1});
+}
+
