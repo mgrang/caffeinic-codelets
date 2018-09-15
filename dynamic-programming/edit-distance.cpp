@@ -45,28 +45,34 @@ std::pair<int, string> editDistance(string s, string t) {
   return std::make_pair(D[n][m], E);
 }
 
-int main() {
-  string s = "algorithm";
-  string t = "logarithm";
-
+void test(string s, string t) {
   cout << "Input strings: " << s << ", " << t << "\n";
 
   if (s == "" && t == "") {
     cout << "Edit distance: 0\n";
-    return 0;
+    return;
   }
 
   if (s == "") {
     cout << "Edit distance: " << t.length() << "\n";
-    return 0;
+    return;
   }
 
   if (t == "") {
     cout << "Edit distance: " << s.length() << "\n";
-    return 0;
+    return;
   }
 
   auto ed = editDistance(s, t);
   cout << "Edit distance: " << ed.first << "\n";
   cout << "Edit sequence: " << ed.second << "\n";
+}
+
+int main() {
+  test("logarithm", "algorithm");
+  test("abcde", "acde");
+  test("photography", "typography");
+  test("abcd", "xyz");
+  test("aaaaaaaaaaaaa", "a");
+  test("ababa", "babab");
 }
