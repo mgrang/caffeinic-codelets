@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-int egg_drop(int e, int f) {
+int eggDrop(int e, int f) {
   int T[e + 1][f + 1];
 
   for (int j = 0; j <= f; ++j)
@@ -27,21 +27,25 @@ int egg_drop(int e, int f) {
   return T[e][f];
 }
 
+void test(int e, int f) {
+  cout << "eggs: " << e
+       << ", floors: " << f
+       << ", tries: " << eggDrop(e, f)
+       << "\n";
+}
+
 int main() {
-  cout << "Eggs Floors Tries\n";
-  cout << "1    1      " << egg_drop(1, 1) << "\n";
-  cout << "1    2      " << egg_drop(1, 2) << "\n";
-  cout << "1    3      " << egg_drop(1, 3) << "\n";
-  cout << "1    4      " << egg_drop(1, 4) << "\n";
-  cout << "1    5      " << egg_drop(1, 5) << "\n";
-  cout << "1    6      " << egg_drop(1, 6) << "\n";
-
-  cout << "2    1      " << egg_drop(2, 1) << "\n";
-  cout << "2    2      " << egg_drop(2, 2) << "\n";
-  cout << "2    3      " << egg_drop(2, 3) << "\n";
-  cout << "2    4      " << egg_drop(2, 4) << "\n";
-  cout << "2    5      " << egg_drop(2, 5) << "\n";
-  cout << "2    6      " << egg_drop(2, 6) << "\n";
-
-  cout << "4    8      " << egg_drop(4, 8) << "\n";
+  test(1, 1);
+  test(1, 2);
+  test(1, 3);
+  test(1, 4);
+  test(1, 5);
+  test(1, 6);
+  test(2, 1);
+  test(2, 2);
+  test(2, 3);
+  test(2, 4);
+  test(2, 5);
+  test(2, 6);
+  test(4, 8);
 }
