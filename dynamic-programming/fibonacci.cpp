@@ -15,7 +15,13 @@ long fib(int n) {
   return b;
 }
 
-int main() {
-  int n = 42;
+void test(int n) {
   cout << "fibonacci(" << n << ") = " << fib(n) << "\n";
+}
+
+int main() {
+  test(1);
+  test(42);
+  test(99);
+  test(100);
 }
