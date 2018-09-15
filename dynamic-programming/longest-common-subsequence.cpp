@@ -25,10 +25,16 @@ int lcs(string s, string t) {
   return T[n][m];
 }
 
-int main() {
-  string s = "logarithm";
-  string t = "algorithm";
-
+void test(string s, string t) {
   cout << "LCS between " << s << " and " << t
        << " is: " << lcs(s, t) << "\n";
+}
+
+int main() {
+  test("logarithm", "algorithm");
+  test("abcde", "acde");
+  test("photography", "typography");
+  test("abcd", "xyz");
+  test("aaaaaaaaaaaaa", "a");
+  test("ababa", "babab");
 }
