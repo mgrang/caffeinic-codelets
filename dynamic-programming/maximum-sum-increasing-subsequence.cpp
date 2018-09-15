@@ -6,8 +6,8 @@ using namespace std;
 std::pair<int, std::vector<int>> msis(vector<int> nums) {
   int sum[nums.size()];
   int prev[nums.size()];
-  int maxSum = std::numeric_limits<int>::min();
-  int maxIdx = -1;
+  int maxSum = nums[0];
+  int maxIdx = 0;
 
   sum[0] = nums[0];
   prev[0] = -1;
@@ -21,17 +21,17 @@ std::pair<int, std::vector<int>> msis(vector<int> nums) {
           nums[i] + sum[j] > sum[i]) {
         sum[i] = nums[i] + sum[j];
         prev[i] = j;
+      }
 
-        if (sum[i] > maxSum) {
-          maxSum = sum[i];
-          maxIdx = i;
-        }
+      if (sum[i] > maxSum) {
+        maxSum = sum[i];
+        maxIdx = i;
       }
     }
   }
 
   std::vector<int> seq;
-  while (maxIdx != -1) {
+  while (maxIdx >= 0) {
     seq.insert(seq.begin(), nums[maxIdx]);
     maxIdx = prev[maxIdx];
   }
@@ -39,9 +39,7 @@ std::pair<int, std::vector<int>> msis(vector<int> nums) {
   return std::make_pair(maxSum, seq);
 }
 
-int main() {
-  vector<int> nums = {2, 4, 3, 5, 1, 7, 6, 9, 8};
-
+void test(std::vector<int> nums) {
   cout << "Input: ";
   for (auto i : nums)
     cout << i << " ";
@@ -54,4 +52,16 @@ int main() {
   for (auto i : res.second)
     cout << i << " ";
   cout << "\n";
+}
+
+int main() {
+  test({2, 4, 3, 5, 1, 7, 6, 9, 8});
+  test({1});
+  test({1, 2, 1, 2, 1});
+  test({1, 2, 1, 3, 1, 4});
+  test({5, 4, 3, 2, 1});
+  test({1, 2, 3, 4, 5});
+  test({1, 0, 2, -1});
+  test({-1, -2, -3});
+  test({-3, -2, -1});
 }
