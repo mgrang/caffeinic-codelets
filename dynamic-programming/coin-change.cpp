@@ -38,10 +38,7 @@ std::vector<int> coinChange(int target, std::vector<int> coins) {
   return coinsReq;
 }
 
-int main() {
-  int target = 13;
-  std::vector<int> coins = {2, 3, 5};
-
+void test(std::vector<int> coins, int target) {
   cout << "Target: " << target << "\n";
   cout << "Input coins: ";
   for (auto c : coins)
@@ -53,4 +50,13 @@ int main() {
   for (auto c : coinsReq)
     cout << c << " ";
   cout << "\n";
+}
+
+int main() {
+  test({2, 3, 5}, 13);
+  test({1, 3, 4, 5, 7}, 19);
+  test({1, 3, 4, 5, 7}, 2);
+  test({1, 1, 1, 1, 1}, 5);
+  test({1, 3, 4, 5, 7}, 100);
+  test({1, 3, 4, 5, 7}, 13);
 }
