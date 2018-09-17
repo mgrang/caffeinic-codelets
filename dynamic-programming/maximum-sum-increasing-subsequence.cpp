@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-std::pair<int, std::vector<int>> msis(vector<int> nums) {
+std::pair<int, std::vector<int>> maxSumIncSub(vector<int> nums) {
   int sum[nums.size()];
   int prev[nums.size()];
   int maxSum = nums[0];
@@ -45,7 +45,7 @@ void test(std::vector<int> nums) {
     cout << i << " ";
   cout << "\n";
 
-  auto res = msis(nums);
+  auto res = maxSumIncSub(nums);
 
   cout << "Max sum: " << res.first << "\n";
   cout << "Max sum increasing sequence: ";
