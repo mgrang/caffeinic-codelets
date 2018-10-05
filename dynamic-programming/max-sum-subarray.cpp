@@ -1,4 +1,5 @@
-#include <algorithm>
+// Kadane's algorithm.
+
 #include <iostream>
 #include <vector>
 using namespace std;
