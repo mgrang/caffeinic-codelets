@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-int maxSubSquareMatrix(std::vector<std::vector<int>> matrix) {
+int maxSquareInMatrix(std::vector<std::vector<int>> matrix) {
   int maxSize = 0;
   int n = matrix.size();
   int m = matrix[0].size();
@@ -30,7 +30,7 @@ void test(std::vector<std::vector<int>> matrix) {
     cout << "\n";
   }
 
-  auto res = maxSubSquareMatrix(matrix);
+  auto res = maxSquareInMatrix(matrix);
   cout << "Max size sub-square matrix: " << res << "x" << res;
   cout << "\n";
 }
