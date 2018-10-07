@@ -65,12 +65,21 @@ std::pair<int, string> lps(string s) {
   return std::make_pair(T[0][s.length() - 1], t);
 }
 
-int main() {
-  string s = "xzyzaybx";
+void test(string s) {
   cout << "Input: " << s << "\n";
 
-  auto p = lps(s);
+  auto res = lps(s);
 
-  cout << "LPS len: " << p.first << "\n";
-  cout << "LPS: " << p.second << "\n";
+  cout << "LPS len: " << res.first << "\n";
+  cout << "LPS: " << res.second << "\n";
+}
+
+int main() {
+  test("xzyzaybx");
+  test("aibohphobia");
+  test("banana");
+  test("malayalam");
+  test("abcdef");
+  test("aaaaaaaa");
+  test("abacadae");
 }
