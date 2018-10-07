@@ -12,9 +12,7 @@ vector<string> getTextToWords(string text) {
   return words;
 }
 
-string greedyLeftJustify(string text, int width) {
-  auto words = getTextToWords(text);
-
+string greedyJustify(vector<string> words, int width) {
   string s = words[0];
   int currWidth = width - s.length();
 
@@ -35,8 +33,7 @@ string greedyLeftJustify(string text, int width) {
   return s;
 }
 
-string optimalJustify(string text, int width) {
-  auto words = getTextToWords(text);
+vector<int> optimalJustify(vector<string> words, int width) {
   int n = words.size();
   int T[n][n] = {0};
   const int INF = std::numeric_limits<int>::max();
@@ -61,7 +58,8 @@ string optimalJustify(string text, int width) {
     }
   }
 
-  int C[n], P[n];
+  vector<int> C(n);
+  vector<int> P(n);
   int i = n - 1;
   int j = n - 1;
 
@@ -90,15 +88,22 @@ string optimalJustify(string text, int width) {
     --i;
     j = n - 1;
   }
+  return P;
+}
+
+string optimalLeftJustify(vector<string> words, int width) {
+  auto P = optimalJustify(words, width);
 
   string s;
-  i = 0;
-  while (i < n) {
+  int i = 0;
+  while (i < P.size()) {
     int j = i;
     while (j < P[i]) {
       s += words[j] + " ";
       ++j;
     }
+
+    s.erase(s.length() - 1);
     s += "\n";
     i = P[i];
   }
@@ -107,10 +112,38 @@ string optimalJustify(string text, int width) {
   return s;
 }
 
+string optimalRightJustify(vector<string> words, int width) {
+  auto P = optimalJustify(words, width);
+
+  string s;
+  int i = 0;
+  while (i < P.size()) {
+    int j = i;
+    string line;
+    while (j < P[i]) {
+      line += words[j] + " ";
+      ++j;
+    }
+
+    line.erase(line.length() - 1);
+    int lineWidth = line.length();
+    line.insert(line.begin(), width - lineWidth, ' ');
+
+    s += line + "\n";
+    i = P[i];
+  }
+
+  s.erase(s.length() - 1);
+  return s;
+}
+
 void test(string text, int width) {
+  auto words = getTextToWords(text);
+
   cout << "Width: " << width << ", Input: " << text << "\n";
-  cout << "\nGreedy:\n" << greedyLeftJustify(text, width) << "\n";
-  cout << "\nOptimal:\n" << optimalJustify(text, width) << "\n";
+  cout << "\nGreedy Justify:\n" << greedyJustify(words, width) << "\n";
+  cout << "\nOptimal Left Justify:\n" << optimalLeftJustify(words, width) << "\n";
+  cout << "\nOptimal Right Justify:\n" << optimalRightJustify(words, width) << "\n";
   cout << "--------------------------------------------------------------------------------\n";
 }
 
