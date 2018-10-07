@@ -54,16 +54,14 @@ string optimalJustify(string text, int width) {
       else {
         while (j < n) {
           T[i][j] = INF;
-          j++;
+          ++j;
         }
         break;
       }
     }
   }
 
-  int C[n];
-  int P[n];
-
+  int C[n], P[n];
   int i = n - 1;
   int j = n - 1;
 
