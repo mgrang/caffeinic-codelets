@@ -74,7 +74,6 @@ wordBreak(string s, std::unordered_set<string> &dict) {
   return std::make_pair(res, words);
 }
 
-
 void test(string s, std::unordered_set<string> dict) {
   auto res = wordBreak(s, dict);
 
