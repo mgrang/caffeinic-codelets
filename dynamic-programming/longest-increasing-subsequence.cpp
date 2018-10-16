@@ -3,9 +3,9 @@
 #include <vector>
 using namespace std;
 
-std::pair<int, std::vector<int>> lis(std::vector<int> nums) {
-  std::vector<int> lens(nums.size());
-  std::vector<int> preds(nums.size());
+std::pair<int, vector<int>> lis(vector<int> nums) {
+  vector<int> lens(nums.size());
+  vector<int> preds(nums.size());
 
   lens[0] = 1;
   preds[0] = -1;
@@ -35,7 +35,7 @@ std::pair<int, std::vector<int>> lis(std::vector<int> nums) {
     }
   }
 
-  std::vector<int> seq;
+  vector<int> seq;
   while (maxIdx >= 0) {
     seq.insert(seq.begin(), nums[maxIdx]);
     maxIdx = preds[maxIdx];
@@ -44,7 +44,7 @@ std::pair<int, std::vector<int>> lis(std::vector<int> nums) {
   return std::make_pair(maxLen, seq);
 }
 
-void test(std::vector<int> nums) {
+void test(vector<int> nums) {
   cout << "Input: ";
   for (auto i : nums)
     cout << i << " ";

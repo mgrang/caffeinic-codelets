@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-std::pair<int, std::pair<int, int>> maxSumSubarray(std::vector<int> nums) {
+std::pair<int, std::pair<int, int>> maxSumSubarray(vector<int> nums) {
   int maxSum = nums[0];
   int currSum = nums[0];
   int maxIdx = 0;
@@ -32,7 +32,7 @@ std::pair<int, std::pair<int, int>> maxSumSubarray(std::vector<int> nums) {
   return std::make_pair(maxSum, std::make_pair(maxIdx, right));
 }
 
-std::vector<int> maxSumSquare(std::vector<std::vector<int>> matrix) {
+vector<int> maxSumSquare(vector<vector<int>> matrix) {
   int n = matrix.size();
   int m = matrix[0].size();
 
@@ -43,7 +43,7 @@ std::vector<int> maxSumSquare(std::vector<std::vector<int>> matrix) {
   int down = 0;
 
   for (int i = 0; i < n; ++i) {
-    std::vector<int> T(n);
+    vector<int> T(n);
 
     for (int k = i; k < n; ++k) {
       for (int j = 0; j < m; ++j)
@@ -63,7 +63,7 @@ std::vector<int> maxSumSquare(std::vector<std::vector<int>> matrix) {
   return {maxSum, left, right, up, down};
 }
 
-void test(std::vector<std::vector<int>> matrix) {
+void test(vector<vector<int>> matrix) {
   cout << "Input:\n";
   for (auto rows : matrix) {
     for (auto i : rows)

@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-std::pair<int, std::pair<int, int>> maxSumSubarray(std::vector<int> nums) {
+std::pair<int, std::pair<int, int>> maxSumSubarray(vector<int> nums) {
   int maxSum = nums[0];
   int currSum = nums[0];
   int maxIdx = 0;
@@ -34,7 +34,7 @@ std::pair<int, std::pair<int, int>> maxSumSubarray(std::vector<int> nums) {
   return std::make_pair(maxSum, std::make_pair(maxIdx, right));
 }
 
-void test(std::vector<int> nums) {
+void test(vector<int> nums) {
   cout << "Input: ";
   for (auto i : nums)
     cout << i << " ";

@@ -8,10 +8,10 @@ bool check(string t, std::unordered_set<string> &dict) {
   return dict.find(t) != dict.end();
 }
 
-std::pair<bool, std::vector<string>>
+std::pair<bool, vector<string>>
 wordBreak(string s, std::unordered_set<string> &dict) {
   if (s.length() == 0)
-    return std::make_pair(true, std::vector<string>());
+    return std::make_pair(true, vector<string>());
 
   std::unordered_map<int, int> idxMap;
   int n = s.length();
@@ -48,7 +48,7 @@ wordBreak(string s, std::unordered_set<string> &dict) {
     --end;
   }
 
-  std::vector<string> words;
+  vector<string> words;
   bool res = T[0][n - 1];
   if (res) {
     int i = 0;

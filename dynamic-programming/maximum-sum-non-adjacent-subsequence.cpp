@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-std::pair<int, std::vector<int>> maxSumNonAdjSub(std::vector<int> nums) {
+std::pair<int, vector<int>> maxSumNonAdjSub(vector<int> nums) {
   int sum[nums.size()];
   int prev[nums.size()];
   int maxIdx = 0;
@@ -31,7 +31,7 @@ std::pair<int, std::vector<int>> maxSumNonAdjSub(std::vector<int> nums) {
     }
   }
 
-  std::vector<int> seq;
+  vector<int> seq;
   while (maxIdx >= 0) {
     seq.insert(seq.begin(), nums[maxIdx]);
     maxIdx = prev[maxIdx];
@@ -40,7 +40,7 @@ std::pair<int, std::vector<int>> maxSumNonAdjSub(std::vector<int> nums) {
   return std::make_pair(maxSum, seq);
 }
 
-void test(std::vector<int> nums) {
+void test(vector<int> nums) {
   cout << "Input: ";
   for (auto i : nums)
     cout << i << " ";

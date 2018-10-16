@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-int traverse(std::vector<std::vector<int>> matrix) {
+int traverse(vector<vector<int>> matrix) {
   int n = matrix.size();
   int m = matrix[0].size();
 
@@ -19,7 +19,7 @@ int traverse(std::vector<std::vector<int>> matrix) {
   return T[n - 1][m - 1];
 }
 
-void test(std::vector<std::vector<int>> matrix) {
+void test(vector<vector<int>> matrix) {
   cout << "Input:\n";
   for (auto rows : matrix) {
     for (auto i : rows)

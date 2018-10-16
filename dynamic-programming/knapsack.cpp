@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 
-std::pair<int, std::vector<int>>
-knapsack(int target, std::vector<int> wts, std::vector<int> vals) {
+std::pair<int, vector<int>>
+knapsack(int target, vector<int> wts, vector<int> vals) {
   int T[wts.size() + 1][target + 1];
 
   for (int i = 0; i <= wts.size(); ++i) {
@@ -20,7 +20,7 @@ knapsack(int target, std::vector<int> wts, std::vector<int> vals) {
     }
   }
 
-  std::vector<int> items;
+  vector<int> items;
   int i = wts.size();
   int j = target;
   while (i && j && T[i][j]) {
@@ -36,8 +36,8 @@ knapsack(int target, std::vector<int> wts, std::vector<int> vals) {
 
 int main() {
   int target = 6;
-  std::vector<int> wts = {1, 3, 4, 5};
-  std::vector<int> vals = {1, 4, 5, 7};
+  vector<int> wts = {1, 3, 4, 5};
+  vector<int> vals = {1, 4, 5, 7};
 
   auto k = knapsack(target, wts, vals);
 

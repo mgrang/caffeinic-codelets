@@ -2,10 +2,10 @@
 #include <vector>
 using namespace std;
 
-int maxArea(std::vector<int> hist) {
+int maxArea(vector<int> hist) {
   hist.push_back(0);
 
-  std::vector<int> stack;
+  vector<int> stack;
   stack.push_back(0);
   int maxArea = hist[0];
 
@@ -33,7 +33,7 @@ int maxArea(std::vector<int> hist) {
   return maxArea;
 }
 
-void test(std::vector<int> hist) {
+void test(vector<int> hist) {
   cout << "Input: ";
   for (auto i : hist)
     cout << i << " ";

@@ -2,10 +2,10 @@
 #include <vector>
 using namespace std;
 
-int maxRectInHist(std::vector<int> hist) {
+int maxRectInHist(vector<int> hist) {
   hist.push_back(0);
 
-  std::vector<int> stack;
+  vector<int> stack;
   stack.push_back(0);
   int maxArea = hist[0];
 
@@ -33,10 +33,10 @@ int maxRectInHist(std::vector<int> hist) {
   return maxArea;
 }
 
-int maxArea(std::vector<std::vector<int>> matrix) {
+int maxArea(vector<vector<int>> matrix) {
   int maxArea = 0;
 
-  std::vector<int> hist(matrix[0].size());
+  vector<int> hist(matrix[0].size());
   for (auto rows : matrix) {
     for (int i = 0; i < rows.size(); ++i)
       if (rows[i])
@@ -51,7 +51,7 @@ int maxArea(std::vector<std::vector<int>> matrix) {
   return maxArea;
 }
 
-void test(std::vector<std::vector<int>> matrix) {
+void test(vector<vector<int>> matrix) {
   cout << "Input:\n";
   for (auto rows : matrix) {
     for (auto i : rows)

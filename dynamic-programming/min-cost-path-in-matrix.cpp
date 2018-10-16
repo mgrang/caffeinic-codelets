@@ -3,8 +3,8 @@
 #include <vector>
 using namespace std;
 
-std::pair<int, std::vector<int>>
-minCostPath(std::vector<std::vector<int>> matrix) {
+std::pair<int, vector<int>>
+minCostPath(vector<vector<int>> matrix) {
   int n = matrix.size();
   int m = matrix[0].size();
 
@@ -26,7 +26,7 @@ minCostPath(std::vector<std::vector<int>> matrix) {
     }
   }
 
-  std::vector<int> P;
+  vector<int> P;
   int i = n - 1;
   int j = m - 1;
   while (n && m && i >= 0 || j >= 0) {
@@ -42,7 +42,7 @@ minCostPath(std::vector<std::vector<int>> matrix) {
   return std::make_pair(T[n - 1][m - 1], P);
 }
 
-void test(std::vector<std::vector<int>> matrix) {
+void test(vector<vector<int>> matrix) {
   cout << "Input:\n";
   for (auto rows : matrix) {
     for (auto i : rows)

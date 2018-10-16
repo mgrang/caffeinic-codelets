@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-int maxSquareInMatrix(std::vector<std::vector<int>> matrix) {
+int maxSquareInMatrix(vector<vector<int>> matrix) {
   int maxSize = 0;
   int n = matrix.size();
   int m = matrix[0].size();
@@ -22,7 +22,7 @@ int maxSquareInMatrix(std::vector<std::vector<int>> matrix) {
   return maxSize;
 }
 
-void test(std::vector<std::vector<int>> matrix) {
+void test(vector<vector<int>> matrix) {
   cout << "Input:\n";
   for (auto rows : matrix) {
     for (auto i : rows)

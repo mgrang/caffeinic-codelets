@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-std::vector<int> subsetSum(int sum, std::vector<int> nums) {
+vector<int> subsetSum(int sum, vector<int> nums) {
   bool T[nums.size() + 1][sum + 1];
 
   int row = -1;
@@ -27,7 +27,7 @@ std::vector<int> subsetSum(int sum, std::vector<int> nums) {
     }
   }
 
-  std::vector<int> subset;
+  vector<int> subset;
   if (row > -1) {
     int col = sum;
 
@@ -46,7 +46,7 @@ std::vector<int> subsetSum(int sum, std::vector<int> nums) {
   return subset;
 }
 
-void test(std::vector<int> nums, int sum) {
+void test(vector<int> nums, int sum) {
   cout << "Target sum: " << sum << "\n";
   cout << "Input: ";
   for (auto I : nums)
@@ -58,7 +58,7 @@ void test(std::vector<int> nums, int sum) {
     return;
   }
 
-  std::vector<int> S = subsetSum(sum, nums);
+  vector<int> S = subsetSum(sum, nums);
   if (S.size()) {
     cout << "Subset sum: ";
     for (auto I : S)

@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-std::vector<int> coinChange(int target, std::vector<int> coins) {
+vector<int> coinChange(int target, vector<int> coins) {
   // T is unsigned int to guard against integer overflow.
   unsigned int T[target + 1];
   int U[target + 1];
@@ -28,7 +28,7 @@ std::vector<int> coinChange(int target, std::vector<int> coins) {
     }
   }
 
-  std::vector<int> coinsReq;
+  vector<int> coinsReq;
   int i = target;
   while (i > 0 && U[i] > -1) {
     coinsReq.insert(coinsReq.begin(), coins[U[i]]);
@@ -38,14 +38,14 @@ std::vector<int> coinChange(int target, std::vector<int> coins) {
   return coinsReq;
 }
 
-void test(std::vector<int> coins, int target) {
+void test(vector<int> coins, int target) {
   cout << "Target: " << target << "\n";
   cout << "Input coins: ";
   for (auto c : coins)
     cout << c << " ";
   cout << "\n";
 
-  std::vector<int> coinsReq = coinChange(target, coins);
+  vector<int> coinsReq = coinChange(target, coins);
   cout << "Output coins: ";
   for (auto c : coinsReq)
     cout << c << " ";
