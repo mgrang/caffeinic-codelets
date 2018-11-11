@@ -1,4 +1,6 @@
+#include<algorithm>
 #include<iostream>
+
 using namespace std;
 
 class Tree {
@@ -17,6 +19,8 @@ public:
   static void inorder(Tree *T);
   static void preorder(Tree *T);
   static void postorder(Tree *T);
+  static int countNodes(Tree *T);
+  static int height(Tree *T);
 
   static void display(Tree *T) { cout << T->val << " "; }
 
@@ -72,4 +76,16 @@ void Tree::postorder(Tree *T) {
   postorder(T->left);
   postorder(T->right);
   display(T);
+}
+
+int Tree::countNodes(Tree *T) {
+  if (!T)
+    return 0;
+  return 1 + countNodes(T->left) + countNodes(T->right);
+}
+
+int Tree::height(Tree *T) {
+  if (!T)
+    return 0;
+  return 1 + std::max(height(T->left), height(T->right));
 }
