@@ -11,34 +11,51 @@ public:
   static Tree *root;
   static int numNodes;
 
-  Tree(int V, Tree *L = nullptr, Tree *R = nullptr) : val(V), left(L), right(R) {
+  Tree(int V) : val(V), left(nullptr), right(nullptr) {
     if (!numNodes)
       root = this;
     ++numNodes;
   };
 
-  void insert(Tree *T, int V);
+  ~Tree() { destroy(root); }
+
+  static void insert(Tree *T, int V);
 
   static void inorder(Tree *T);
   static void preorder(Tree *T);
   static void postorder(Tree *T);
 
-  static void display(int V) { cout << V << " "; }
+  static void display(Tree *T) { cout << T->val << " "; }
+
+private:
+  void destroy(Tree *T);
 };
 
 int Tree::numNodes = 0;
 Tree *Tree::root = nullptr;
 
-void Tree::insert(Tree *T, int V) {
-  if (!T) {
-    T = new Tree(V);
-    return;
+void Tree::destroy(Tree *T) {
+  if (T) {
+    destroy(T->left);
+    destroy(T->right);
+    delete T;
+    --numNodes;
   }
+}
 
-  if (V < T->val)
-    insert(T->left, V);
-  else
-    insert(T->right, V);
+void Tree::insert(Tree *T, int V) {
+  if (V < T->val) {
+    if (!T->left)
+      T->left = new Tree(V);
+    else
+      insert(T->left, V);
+  }
+  else {
+    if (!T->right)
+      T->right = new Tree(V);
+    else
+      insert(T->right, V);
+  }
 }
 
 void Tree::inorder(Tree *T) {
@@ -46,7 +63,7 @@ void Tree::inorder(Tree *T) {
     return;
 
   inorder(T->left);
-  display(T->val);
+  display(T);
   inorder(T->right);
 }
 
@@ -54,7 +71,7 @@ void Tree::preorder(Tree *T) {
   if (!T)
     return;
 
-  display(T->val);
+  display(T);
   preorder(T->left);
   preorder(T->right);
 }
@@ -63,7 +80,7 @@ void Tree::postorder(Tree *T) {
   if (!T)
     return;
 
-  preorder(T->left);
-  preorder(T->right);
-  display(T->val);
+  postorder(T->left);
+  postorder(T->right);
+  display(T);
 }
