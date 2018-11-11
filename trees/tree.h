@@ -1,5 +1,6 @@
 #include<algorithm>
 #include<iostream>
+#include<set>
 
 using namespace std;
 
@@ -10,7 +11,8 @@ class Tree {
   Tree(int v, Tree *p) : val(v), parent(p), left(nullptr), right(nullptr) {}
 
 public:
-  Tree() : val(), parent(this), left(nullptr), right(nullptr) {}
+  Tree() : val(-1), parent(this), left(nullptr), right(nullptr) {}
+  Tree(const Tree &);
 
   ~Tree() { destroy(this); }
 
@@ -21,11 +23,13 @@ public:
   static int countNodes(Tree *T);
   static int height(Tree *T);
   static bool isEmpty(Tree *T);
+  static int getRoot(Tree *T);
 
   static void display(Tree *T) { cout << T->val << " "; }
 
 private:
   static void destroy(Tree *T);
+  static Tree* getRootHelper(Tree *T);
 };
 
 void Tree::destroy(Tree *T) {
@@ -98,4 +102,14 @@ int Tree::height(Tree *T) {
   if (!T || isEmpty(T))
     return 0;
   return 1 + std::max(height(T->left), height(T->right));
+}
+
+Tree *Tree::getRootHelper(Tree *T) {
+  if (!T || isEmpty(T) || !T->parent)
+    return T;
+  return getRootHelper(T->parent);
+}
+
+int Tree::getRoot(Tree * T) {
+  return getRootHelper(T)->val;
 }

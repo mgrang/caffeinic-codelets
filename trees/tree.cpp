@@ -10,16 +10,17 @@ void test(vector<int> Vals) {
 
   cout << "Node count: " << Tree::countNodes(T) << "\n";
   cout << "Tree height: " << Tree::height(T) << "\n";
+  cout << "Root: " << Tree::getRoot(T) << "\n";
 
-  cout << "Inorder: ";
+  cout << "Inorder DFS: ";
   Tree::inorder(T);
   cout << "\n";
 
-  cout << "Preorder: ";
+  cout << "Preorder DFS: ";
   Tree::preorder(T);
   cout << "\n";
 
-  cout << "Postorder: ";
+  cout << "Postorder DFS: ";
   Tree::postorder(T);
   cout << "\n";
 
