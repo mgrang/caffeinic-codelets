@@ -8,16 +8,9 @@ private:
   Tree *right;
 
 public:
-  static Tree *root;
-  static int numNodes;
+  Tree(int V) : val(V), left(nullptr), right(nullptr) {}
 
-  Tree(int V) : val(V), left(nullptr), right(nullptr) {
-    if (!numNodes)
-      root = this;
-    ++numNodes;
-  };
-
-  ~Tree() { destroy(root); }
+  ~Tree() { destroy(this); }
 
   static void insert(Tree *T, int V);
 
@@ -28,18 +21,14 @@ public:
   static void display(Tree *T) { cout << T->val << " "; }
 
 private:
-  void destroy(Tree *T);
+  static void destroy(Tree *T);
 };
-
-int Tree::numNodes = 0;
-Tree *Tree::root = nullptr;
 
 void Tree::destroy(Tree *T) {
   if (T) {
     destroy(T->left);
     destroy(T->right);
     delete T;
-    --numNodes;
   }
 }
 
