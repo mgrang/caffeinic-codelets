@@ -24,6 +24,7 @@ public:
   static int height(Tree *T);
   static bool isEmpty(Tree *T);
   static int getRoot(Tree *T);
+  static bool search(Tree *T, int k);
 
   static void display(Tree *T) { cout << T->val << " "; }
 
@@ -112,4 +113,14 @@ Tree *Tree::getRootHelper(Tree *T) {
 
 int Tree::getRoot(Tree * T) {
   return getRootHelper(T)->val;
+}
+
+bool Tree::search(Tree *T, int k) {
+  if (!T || isEmpty(T))
+    return false;
+  if (T->val == k)
+    return true;
+  if (T->val < k)
+    return search(T->right, k);
+  return search(T->left, k);
 }
