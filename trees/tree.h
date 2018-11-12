@@ -25,6 +25,7 @@ public:
   static bool isEmpty(Tree *T);
   static int getRoot(Tree *T);
   static bool search(Tree *T, int k);
+  static bool isSame(Tree *T1, Tree *T2);
 
   static void display(Tree *T) { cout << T->val << " "; }
 
@@ -123,4 +124,18 @@ bool Tree::search(Tree *T, int k) {
   if (T->val < k)
     return search(T->right, k);
   return search(T->left, k);
+}
+
+bool Tree::isSame(Tree *T1, Tree *T2) {
+  if (!T1 && !T2)
+    return true;
+  if (!T1 || !T2)
+    return false;
+  if (isEmpty(T1) && isEmpty(T2))
+    return true;
+  if (isEmpty(T1) || isEmpty(T2))
+    return false;
+  return T1->val == T2->val &&
+         isSame(T1->left, T2->left) &&
+         isSame(T1->right, T2->right);
 }
