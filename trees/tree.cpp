@@ -11,6 +11,8 @@ void test(vector<int> Vals, vector<int> Find) {
   cout << "Node count: " << Tree::countNodes(T) << "\n";
   cout << "Tree height: " << Tree::height(T) << "\n";
   cout << "Root: " << Tree::getRoot(T) << "\n";
+  cout << "Min Val: " << Tree::getMin(T) << "\n";
+  cout << "Max Val: " << Tree::getMax(T) << "\n";
 
   cout << "Inorder DFS: ";
   Tree::inorder(T);

@@ -27,6 +27,8 @@ public:
   static int getRoot(Tree *T);
   static bool search(Tree *T, int k);
   static bool isSame(Tree *T1, Tree *T2);
+  static int getMin(Tree *T);
+  static int getMax(Tree *T);
 
   static void display(Tree *T) { cout << T->val << " "; }
 
@@ -158,4 +160,20 @@ bool Tree::isSame(Tree *T1, Tree *T2) {
   return T1->val == T2->val &&
          isSame(T1->left, T2->left) &&
          isSame(T1->right, T2->right);
+}
+
+int Tree::getMin(Tree *T) {
+  if (!T || isEmpty(T))
+    return -1;
+  while (T->left)
+    T = T->left;
+  return T->val;
+}
+
+int Tree::getMax(Tree *T) {
+  if (!T || isEmpty(T))
+    return -1;
+  while (T->right)
+    T = T->right;
+  return T->val;
 }
