@@ -17,6 +17,7 @@ public:
   ~Tree() { destroy(this); }
 
   static void insert(Tree *T, int V);
+  static void insertNonBST(Tree *T, int V);
   static void inorder(Tree *T);
   static void preorder(Tree *T);
   static void postorder(Tree *T);
@@ -62,6 +63,25 @@ void Tree::insert(Tree *T, int V) {
   else {
     if (!T->right)
       T->right = new Tree(V, T);
+    else
+      insert(T->right, V);
+  }
+}
+
+void Tree::insertNonBST(Tree *T, int V) {
+  if (isEmpty(T)) {
+    T->val = V;
+    T->parent = nullptr;
+    return;
+  }
+
+  if (!T->left)
+    T->left = new Tree(V, T);
+  else if (!T->right)
+    T->right = new Tree(V, T);
+  else {
+    if (V % 2 == 0)
+      insert(T->left, V);
     else
       insert(T->right, V);
   }

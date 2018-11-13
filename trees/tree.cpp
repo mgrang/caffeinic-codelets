@@ -62,6 +62,17 @@ void check(vector<int> Vals1, vector<int> Vals2) {
   cout << "---------------------------------------------\n";
 }
 
+void nonBST(vector<int> Vals) {
+  Tree *T = new Tree();
+  for (auto v : Vals)
+    Tree::insert(T, v);
+
+  cout << "Inorder DFS non-BST: ";
+  Tree::inorder(T);
+  cout << "\n";
+  cout << "---------------------------------------------\n";
+}
+
 int main() {
   test({10, 15, 30, 3, 6, 5, 2, 9, 8}, {3, 8, 10, -1, -2});
   test({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, {82, 50, 35, -1, -2});
@@ -72,4 +83,7 @@ int main() {
   check({2, 1, 3}, {2, 1, 4});
   check({2, 1, 3, 4}, {2, 1, 4});
   check({}, {});
+
+  nonBST({10, 15, 30, 3, 6, 5, 2, 9, 8});
+  nonBST({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35});
 }
