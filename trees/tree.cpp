@@ -8,6 +8,7 @@ void test(vector<int> Vals, vector<int> Find) {
   for (auto v : Vals)
     Tree::insert(T, v);
 
+  Tree::print(T);
   cout << "Node count: " << Tree::countNodes(T) << "\n";
   cout << "Tree height: " << Tree::height(T) << "\n";
   cout << "Root: " << Tree::getRoot(T) << "\n";

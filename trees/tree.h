@@ -1,5 +1,6 @@
 #include<algorithm>
 #include<iostream>
+#include<deque>
 #include<set>
 
 using namespace std;
@@ -29,12 +30,13 @@ public:
   static bool isSame(Tree *T1, Tree *T2);
   static int getMin(Tree *T);
   static int getMax(Tree *T);
-
-  static void display(Tree *T) { cout << T->val << " "; }
+  static void display(Tree *T);
+  static void print(Tree *T);
 
 private:
   static void destroy(Tree *T);
   static Tree* getRootHelper(Tree *T);
+  static void printHelper(std::deque<Tree *> &Q, int count, int limit);
 };
 
 void Tree::destroy(Tree *T) {
@@ -176,4 +178,47 @@ int Tree::getMax(Tree *T) {
   while (T->right)
     T = T->right;
   return T->val;
+}
+
+void Tree::display(Tree *T) {
+  if (!T || isEmpty(T))
+    return;
+
+  cout << T->val << " ";
+}
+
+void Tree::printHelper(std::deque<Tree *> &Q, int count = 1, int limit = 1) {
+  if (Q.size() == 0)
+    return;
+
+  Tree *T = Q.front();
+  Q.pop_front();
+
+  if (count == limit) {
+    cout << "\n";
+    count = 0;
+    limit *= 2;
+  }
+
+  if (T) {
+    display(T);
+    Q.push_back(T->left);
+    Q.push_back(T->right);
+  } else cout << " ";
+
+  printHelper(Q, count + 1, limit);
+}
+
+void Tree::print(Tree *T) {
+  if (!T || isEmpty(T))
+    return;
+
+  display(T);
+
+  std::deque<Tree *> Q;
+  Q.push_back(T->left);
+  Q.push_back(T->right);
+  printHelper(Q);
+
+  cout << "\n";
 }
