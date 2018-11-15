@@ -3,7 +3,7 @@
 #include "tree.h"
 using namespace std;
 
-void test(vector<int> Vals, vector<int> Find) {
+void test(vector<int> Vals, vector<int> Find, int k) {
   Tree *T = new Tree();
   for (auto v : Vals)
     Tree::insert(T, v);
@@ -14,6 +14,18 @@ void test(vector<int> Vals, vector<int> Find) {
   cout << "Root: " << Tree::getRoot(T) << "\n";
   cout << "Min Val: " << Tree::getMin(T) << "\n";
   cout << "Max Val: " << Tree::getMax(T) << "\n";
+
+  auto res = Tree::hasPathSum(T, k);
+  if (res.first) {
+    cout << "Sum " << k << " found. Path: ";
+    auto nums = res.second;
+    while (nums.size()) {
+      cout << nums.back() << " ";
+      nums.pop_back();
+    }
+    cout << "\n";
+  } else
+    cout << "Sum " << k << " not found\n";
 
   cout << "Inorder DFS: ";
   Tree::inorder(T);
@@ -77,10 +89,10 @@ void nonBST(vector<int> Vals) {
 }
 
 int main() {
-  test({10, 15, 30, 3, 6, 5, 2, 9, 8}, {3, 8, 10, -1, -2});
-  test({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, {82, 50, 35, -1, -2});
-  test({1}, {1, 0, -1});
-  test({}, {1, 0, -1});
+  test({10, 15, 30, 3, 6, 5, 2, 9, 8}, {3, 8, 10, -1, -2}, 36);
+  test({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, {82, 50, 35, -1, -2}, 207);
+  test({1}, {1, 0, -1}, 1);
+  test({}, {1, 0, -1}, 1);
 
   check({1, 2, 3, 4}, {1, 2, 3, 4});
   check({2, 1, 3}, {2, 1, 4});

@@ -30,6 +30,8 @@ public:
   static bool isSame(Tree *T1, Tree *T2);
   static int getMin(Tree *T);
   static int getMax(Tree *T);
+  static bool isLeafNode(Tree *T);
+  static std::pair<bool, vector<int>> hasPathSum(Tree *T, int k);
   static void display(Tree *T);
   static void print(Tree *T);
 
@@ -37,6 +39,7 @@ private:
   static void destroy(Tree *T);
   static Tree* getRootHelper(Tree *T);
   static void printHelper(std::deque<Tree *> &Q, int count, int limit);
+  static std::pair<bool, vector<int>> getPathSum(Tree *T, int k, vector<int> &nums);
 };
 
 void Tree::destroy(Tree *T) {
@@ -221,4 +224,39 @@ void Tree::print(Tree *T) {
   printHelper(Q);
 
   cout << "\n";
+}
+
+std::pair<bool, vector<int>>
+Tree::getPathSum(Tree *T, int k, vector<int> &nums) {
+  if (!T || isEmpty(T))
+    return std::make_pair(false, nums);
+
+  if (isLeafNode(T) && T->val == k) {
+    nums.push_back(T->val);
+    return std::make_pair(true, nums);
+  }
+
+  auto leftSum = getPathSum(T->left, k - T->val, nums);
+  if (leftSum.first) {
+    nums.push_back(T->val);
+    return std::make_pair(true, nums);
+  }
+
+  auto rightSum = getPathSum(T->right, k - T->val, nums);
+  if (rightSum.first) {
+    nums.push_back(T->val);
+    return std::make_pair(true, nums);
+  }
+
+  return std::make_pair(false, nums);
+}
+
+std::pair<bool, vector<int>>
+Tree::hasPathSum(Tree *T, int k) {
+  vector<int> nums;
+  return getPathSum(T, k, nums);
+}
+
+bool Tree::isLeafNode(Tree *T) {
+  return T && !T->left && !T->right;
 }
