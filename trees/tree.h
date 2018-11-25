@@ -1,7 +1,7 @@
 #include<algorithm>
 #include<iostream>
 #include<deque>
-#include<set>
+#include<unordered_set>
 
 using namespace std;
 
@@ -32,6 +32,11 @@ public:
   static int getMax(Tree *T);
   static bool isLeafNode(Tree *T);
   static std::pair<bool, vector<int>> hasPathSum(Tree *T, int k);
+  static bool isBST(Tree *T);
+  static void iterInOrder(Tree *T);
+  static void iterPreOrder(Tree *T);
+  static void iterPostOrder(Tree *T);
+
   static void display(Tree *T);
   static void print(Tree *T);
 
@@ -40,6 +45,7 @@ private:
   static Tree* getRootHelper(Tree *T);
   static void printHelper(std::deque<Tree *> &Q, int count, int limit);
   static std::pair<bool, vector<int>> getPathSum(Tree *T, int k, vector<int> &nums);
+  static bool isBSTHelper(Tree *T, int min, int max);
 };
 
 void Tree::destroy(Tree *T) {
@@ -119,6 +125,107 @@ void Tree::postorder(Tree *T) {
   postorder(T->left);
   postorder(T->right);
   display(T);
+}
+
+void Tree::iterInOrder(Tree *T) {
+  if (!T || isEmpty(T))
+    return;
+
+  unordered_set<Tree *> visited;
+  vector<Tree *> V;
+  V.push_back(T);
+
+  while (V.size()) {
+    if (isLeafNode(T) ||
+       (!T->left || visited.count(T->left))) {
+      display(T);
+      visited.insert(T);
+
+      if (V.back() == T)
+        V.pop_back();
+
+      if (!isLeafNode(T) && T->right) {
+        T = T->right;
+        V.push_back(T);
+      }
+      else if (V.size())
+        T = V.back();
+      continue;
+    }
+
+    if (V.back() != T)
+      V.push_back(T);
+
+    if (T->left)
+      T = T->left;
+    else if (T->right)
+      T = T->right;
+  }
+}
+
+void Tree::iterPreOrder(Tree *T) {
+  if (!T || isEmpty(T))
+    return;
+
+  unordered_set<Tree *> visited;
+  vector<Tree *> V;
+  V.push_back(T);
+
+  while (V.size()) {
+    if (!visited.count(T)) {
+      display(T);
+      visited.insert(T);
+    }
+
+    if (isLeafNode(T) ||
+       ((!T->left || visited.count(T->left)) &&
+        (!T->right || visited.count(T->right)))) {
+      V.pop_back();
+      T = V.back();
+      continue;
+    }
+
+    if (T->right)
+      V.push_back(T->right);
+    if (T->left)
+      V.push_back(T->left);
+
+    if (T->left)
+      T = T->left;
+    else if (T->right)
+      T = T->right;
+  }
+}
+
+void Tree::iterPostOrder(Tree *T) {
+  if (!T || isEmpty(T))
+    return;
+
+  unordered_set<Tree *> visited;
+  vector<Tree *> V;
+  V.push_back(T);
+
+  while (V.size()) {
+    if (isLeafNode(T) ||
+       ((!T->left || visited.count(T->left)) &&
+        (!T->right || visited.count(T->right)))) {
+      display(T);
+      visited.insert(T);
+      V.pop_back();
+      T = V.back();
+      continue;
+    }
+
+    if (T->right)
+      V.push_back(T->right);
+    if (T->left)
+      V.push_back(T->left);
+
+    if (T->left)
+      T = T->left;
+    else if (T->right)
+      T = T->right;
+  }
 }
 
 int Tree::countNodes(Tree *T) {
@@ -259,4 +366,21 @@ Tree::hasPathSum(Tree *T, int k) {
 
 bool Tree::isLeafNode(Tree *T) {
   return T && !T->left && !T->right;
+}
+
+bool Tree::isBSTHelper(Tree *T,
+                       int min = std::numeric_limits<int>::min(),
+                       int max = std::numeric_limits<int>::max()) {
+  if (!T || isEmpty(T))
+    return true;
+
+  if (T->val < min || T->val > max)
+    return false;
+
+  return isBSTHelper(T->left, min, T->val) &&
+         isBSTHelper(T->right, T->val, max);
+}
+
+bool Tree::isBST(Tree *T) {
+  return isBSTHelper(T);
 }

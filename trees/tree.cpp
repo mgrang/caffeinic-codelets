@@ -14,6 +14,7 @@ void test(vector<int> Vals, vector<int> Find, int k) {
   cout << "Root: " << Tree::getRoot(T) << "\n";
   cout << "Min Val: " << Tree::getMin(T) << "\n";
   cout << "Max Val: " << Tree::getMax(T) << "\n";
+  cout << "Is BST: " << Tree::isBST(T) << "\n";
 
   auto res = Tree::hasPathSum(T, k);
   if (res.first) {
@@ -31,12 +32,24 @@ void test(vector<int> Vals, vector<int> Find, int k) {
   Tree::inorder(T);
   cout << "\n";
 
+  cout << "Iterative Inorder DFS: ";
+  Tree::iterInOrder(T);
+  cout << "\n";
+
   cout << "Preorder DFS: ";
   Tree::preorder(T);
   cout << "\n";
 
+  cout << "Iterative Preorder DFS: ";
+  Tree::iterPreOrder(T);
+  cout << "\n";
+
   cout << "Postorder DFS: ";
   Tree::postorder(T);
+  cout << "\n";
+
+  cout << "Iterative Postorder DFS: ";
+  Tree::iterPostOrder(T);
   cout << "\n";
 
   for (auto i : Find) {
@@ -82,6 +95,9 @@ void nonBST(vector<int> Vals) {
   for (auto v : Vals)
     Tree::insert(T, v);
 
+  Tree::print(T);
+  cout << "Is BST: " << Tree::isBST(T) << "\n";
+
   cout << "Inorder DFS non-BST: ";
   Tree::inorder(T);
   cout << "\n";
@@ -101,4 +117,5 @@ int main() {
 
   nonBST({10, 15, 30, 3, 6, 5, 2, 9, 8});
   nonBST({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35});
+  nonBST({3, 4, 5});
 }
