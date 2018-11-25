@@ -131,35 +131,22 @@ void Tree::iterInOrder(Tree *T) {
   if (!T || isEmpty(T))
     return;
 
-  unordered_set<Tree *> visited;
   vector<Tree *> V;
   V.push_back(T);
 
   while (V.size()) {
-    if (isLeafNode(T) ||
-       (!T->left || visited.count(T->left))) {
-      display(T);
-      visited.insert(T);
-
-      if (V.back() == T)
-        V.pop_back();
-
-      if (!isLeafNode(T) && T->right) {
+    if (!T) {
+      T = V.back();
+      V.pop_back();
+      if (T) {
+        display(T);
         T = T->right;
         V.push_back(T);
       }
-      else if (V.size())
-        T = V.back();
-      continue;
-    }
-
-    if (V.back() != T)
-      V.push_back(T);
-
-    if (T->left)
+    } else {
       T = T->left;
-    else if (T->right)
-      T = T->right;
+      V.push_back(T);
+    }
   }
 }
 
@@ -167,33 +154,25 @@ void Tree::iterPreOrder(Tree *T) {
   if (!T || isEmpty(T))
     return;
 
-  unordered_set<Tree *> visited;
   vector<Tree *> V;
   V.push_back(T);
 
   while (V.size()) {
-    if (!visited.count(T)) {
-      display(T);
-      visited.insert(T);
-    }
-
-    if (isLeafNode(T) ||
-       ((!T->left || visited.count(T->left)) &&
-        (!T->right || visited.count(T->right)))) {
-      V.pop_back();
+    if (!T) {
       T = V.back();
-      continue;
-    }
-
-    if (T->right)
+      V.pop_back();
+      if (T) {
+        display(T);
+        V.push_back(T->right);
+        T = T->left;
+      }
+    } else {
+      display(T);
+      if (T && V.back() == T)
+        V.pop_back();
       V.push_back(T->right);
-    if (T->left)
-      V.push_back(T->left);
-
-    if (T->left)
       T = T->left;
-    else if (T->right)
-      T = T->right;
+    }
   }
 }
 
