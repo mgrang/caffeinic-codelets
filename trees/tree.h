@@ -182,30 +182,28 @@ void Tree::iterPostOrder(Tree *T) {
   if (!T || isEmpty(T))
     return;
 
-  unordered_set<Tree *> visited;
   vector<Tree *> V;
   V.push_back(T);
 
+  Tree *prev = T;
+
   while (V.size()) {
-    if (isLeafNode(T) ||
-       ((!T->left || visited.count(T->left)) &&
-        (!T->right || visited.count(T->right)))) {
+    Tree *T = V.back();
+
+    if (isLeafNode(T) || T->right == prev ||
+       (!T->right && T->left == prev)) {
       display(T);
-      visited.insert(T);
+      prev = T;
       V.pop_back();
-      T = V.back();
       continue;
     }
 
-    if (T->right)
+    if (T->right && T->left == prev)
       V.push_back(T->right);
-    if (T->left)
+    else if (T->left)
       V.push_back(T->left);
-
-    if (T->left)
-      T = T->left;
     else if (T->right)
-      T = T->right;
+      V.push_back(T->right);
   }
 }
 
