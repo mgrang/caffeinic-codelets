@@ -39,11 +39,13 @@ public:
 
   static void display(Tree *T);
   static void print(Tree *T);
+  static void reversePrint(Tree *T);
 
 private:
   static void destroy(Tree *T);
   static Tree* getRootHelper(Tree *T);
   static void printHelper(std::deque<Tree *> &Q, int count, int limit);
+  static void reversePrintHelper(vector<Tree *> &V, int idx);
   static std::pair<bool, vector<int>> getPathSum(Tree *T, int k, vector<int> &nums);
   static bool isBSTHelper(Tree *T, int min, int max);
 };
@@ -362,4 +364,32 @@ bool Tree::isBSTHelper(Tree *T,
 
 bool Tree::isBST(Tree *T) {
   return isBSTHelper(T);
+}
+
+void Tree::reversePrintHelper(vector<Tree *> &V, int idx = 0) {
+  if (idx >= V.size())
+    return;
+
+  Tree *T = V[idx];
+  if (T->left)
+    V.push_back(T->left);
+
+  if (T->right)
+    V.push_back(T->right);
+
+  reversePrintHelper(V, ++idx);
+}
+
+void Tree::reversePrint(Tree *T) {
+  if (!T || isEmpty(T))
+    return;
+
+  vector<Tree *> V;
+  V.push_back(T);
+  reversePrintHelper(V);
+
+  while (V.size()) {
+    display(V.back());
+    V.pop_back();
+  }
 }
