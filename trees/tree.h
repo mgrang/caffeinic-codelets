@@ -36,6 +36,7 @@ public:
   static void iterInOrder(Tree *T);
   static void iterPreOrder(Tree *T);
   static void iterPostOrder(Tree *T);
+  static int lowestCommonAncestor(Tree *T, int a, int b);
 
   static void display(Tree *T);
   static void print(Tree *T);
@@ -434,4 +435,20 @@ void Tree::spiralPrint(Tree *T) {
       }
     }
   }
+}
+
+int Tree::lowestCommonAncestor(Tree *T, int a, int b) {
+  int v = T->val;
+
+  if (v == a)
+    return a;
+  if (v == b)
+    return b;
+  if (v > a && v < b)
+    return v;
+  if (v > b && v < a)
+    return v;
+  if (v > a && v > b)
+    return lowestCommonAncestor(T->left, a, b);
+  return lowestCommonAncestor(T->right, a, b);
 }

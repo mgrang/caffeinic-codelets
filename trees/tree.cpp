@@ -3,7 +3,7 @@
 #include "tree.h"
 using namespace std;
 
-void test(vector<int> Vals, vector<int> Find, int k) {
+void test1(vector<int> Vals, vector<int> Find, int k) {
   Tree *T = new Tree();
   for (auto v : Vals)
     Tree::insert(T, v);
@@ -73,7 +73,7 @@ void test(vector<int> Vals, vector<int> Find, int k) {
 //  T->~Tree();
 }
 
-void check(vector<int> Vals1, vector<int> Vals2) {
+void test2(vector<int> Vals1, vector<int> Vals2) {
   Tree *T1 = new Tree();
   for (auto v : Vals1)
     Tree::insert(T1, v);
@@ -98,6 +98,16 @@ void check(vector<int> Vals1, vector<int> Vals2) {
   cout << "---------------------------------------------\n";
 }
 
+void test3(vector<int> Vals, int a, int b) {
+  Tree *T = new Tree();
+  for (auto v : Vals)
+    Tree::insert(T, v);
+
+  Tree::print(T);
+  cout << "LCA(" << a << ", " << b << "): " << Tree::lowestCommonAncestor(T, a, b);
+  cout << "\n";
+}
+
 void nonBST(vector<int> Vals) {
   Tree *T = new Tree();
   for (auto v : Vals)
@@ -113,15 +123,18 @@ void nonBST(vector<int> Vals) {
 }
 
 int main() {
-  test({10, 15, 30, 3, 6, 5, 2, 9, 8}, {3, 8, 10, -1, -2}, 36);
-  test({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, {82, 50, 35, -1, -2}, 207);
-  test({1}, {1, 0, -1}, 1);
-  test({}, {1, 0, -1}, 1);
+  test1({10, 15, 30, 3, 6, 5, 2, 9, 8}, {3, 8, 10, -1, -2}, 36);
+  test1({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, {82, 50, 35, -1, -2}, 207);
+  test1({1}, {1, 0, -1}, 1);
+  test1({}, {1, 0, -1}, 1);
 
-  check({1, 2, 3, 4}, {1, 2, 3, 4});
-  check({2, 1, 3}, {2, 1, 4});
-  check({2, 1, 3, 4}, {2, 1, 4});
-  check({}, {});
+  test2({1, 2, 3, 4}, {1, 2, 3, 4});
+  test2({2, 1, 3}, {2, 1, 4});
+  test2({2, 1, 3, 4}, {2, 1, 4});
+  test2({}, {});
+
+  test3({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, 74, 82);
+  test3({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, 4, 28);
 
   nonBST({10, 15, 30, 3, 6, 5, 2, 9, 8});
   nonBST({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35});
