@@ -438,17 +438,9 @@ void Tree::spiralPrint(Tree *T) {
 }
 
 int Tree::lowestCommonAncestor(Tree *T, int a, int b) {
-  int v = T->val;
-
-  if (v == a)
-    return a;
-  if (v == b)
-    return b;
-  if (v > a && v < b)
-    return v;
-  if (v > b && v < a)
-    return v;
-  if (v > a && v > b)
+  if (T->val < std::min(a, b))
+    return lowestCommonAncestor(T->right, a, b);
+  else if (T->val > std::max(a, b))
     return lowestCommonAncestor(T->left, a, b);
-  return lowestCommonAncestor(T->right, a, b);
+  return T->val;
 }
