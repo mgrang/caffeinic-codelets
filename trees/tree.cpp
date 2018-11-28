@@ -52,8 +52,12 @@ void test(vector<int> Vals, vector<int> Find, int k) {
   Tree::iterPostOrder(T);
   cout << "\n";
 
-  cout << "Reverse Level Order: ";
+  cout << "Reverse Level Order Print: ";
   Tree::reversePrint(T);
+  cout << "\n";
+
+  cout << "Spiral Level Order Print: ";
+  Tree::spiralPrint(T);
   cout << "\n";
 
   for (auto i : Find) {

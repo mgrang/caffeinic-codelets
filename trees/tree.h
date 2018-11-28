@@ -40,6 +40,7 @@ public:
   static void display(Tree *T);
   static void print(Tree *T);
   static void reversePrint(Tree *T);
+  static void spiralPrint(Tree *T);
 
 private:
   static void destroy(Tree *T);
@@ -389,5 +390,48 @@ void Tree::reversePrint(Tree *T) {
   while (V.size()) {
     display(V.back());
     V.pop_back();
+  }
+}
+
+void Tree::spiralPrint(Tree *T) {
+  if (!T || isEmpty(T))
+    return;
+
+  vector<Tree *> V1;
+  vector<Tree *> V2;
+  bool flag = true;
+
+  V1.push_back(T);
+
+  while (V1.size() || V2.size()) {
+    if (flag) {
+      flag = false;
+ 
+     while (V1.size()) {
+        Tree *T = V1.back();
+        V1.pop_back();
+        display(T);
+
+        if (T->left)
+          V2.push_back(T->left);
+        if (T->right)
+          V2.push_back(T->right);
+      }
+    }
+
+    else {
+      flag = true;
+
+     while (V2.size()) {
+        Tree *T = V2.back();
+        V2.pop_back();
+        display(T);
+
+        if (T->right)
+          V1.push_back(T->right);
+        if (T->left)
+          V1.push_back(T->left);
+      }
+    }
   }
 }
