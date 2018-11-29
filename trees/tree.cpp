@@ -104,16 +104,20 @@ void test3(vector<int> Vals, int a, int b) {
     Tree::insert(T, v);
 
   Tree::print(T);
-  cout << "LCA(" << a << ", " << b << "): " << Tree::lowestCommonAncestor(T, a, b);
+  cout << "LCA(" << a << ", " << b << "): ";
+  Tree::display(Tree::lowestCommonAncestor(T, a, b));
   cout << "\n";
 }
 
-void nonBST(vector<int> Vals) {
+void nonBST(vector<int> Vals, int a, int b) {
   Tree *T = new Tree();
   for (auto v : Vals)
     Tree::insert(T, v);
 
   Tree::print(T);
+  cout << "LCA(" << a << ", " << b << "): ";
+  Tree::display(Tree::lowestCommonAncestorNonBST(T, a, b));
+  cout << "\n";
   cout << "Is BST: " << Tree::isBST(T) << "\n";
 
   cout << "Inorder DFS non-BST: ";
@@ -136,7 +140,7 @@ int main() {
   test3({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, 74, 82);
   test3({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, 4, 28);
 
-  nonBST({10, 15, 30, 3, 6, 5, 2, 9, 8});
-  nonBST({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35});
-  nonBST({3, 4, 5});
+  nonBST({10, 15, 30, 3, 6, 5, 2, 9, 8}, 9, 8);
+  nonBST({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, 30, 4);
+  nonBST({3, 4, 5}, 3, 5);
 }
