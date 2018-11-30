@@ -5,6 +5,13 @@
 
 using namespace std;
 
+typedef struct {
+  bool isBST;
+  int size;
+  int min;
+  int max;
+} BST;
+
 class Tree {
   int val;
   Tree *left, *right, *parent;
@@ -38,6 +45,7 @@ public:
   static void iterPostOrder(Tree *T);
   static Tree *lowestCommonAncestor(Tree *T, int a, int b);
   static Tree *lowestCommonAncestorNonBST(Tree *T, int a, int b);
+  static BST getLargestBST(Tree *T);
 
   static void display(Tree *T);
   static void print(Tree *T);
@@ -459,4 +467,19 @@ Tree *Tree::lowestCommonAncestorNonBST(Tree *T, int a, int b) {
   if (LHS && RHS)
     return T;
   return LHS ? LHS : RHS;
+}
+
+BST Tree::getLargestBST(Tree *T) {
+  if (!T)
+    return BST{true, 0, 0, 0};
+  if (isLeafNode(T))
+    return BST{true, 1, T->val, T->val};
+
+  BST lhs = getLargestBST(T->left);
+  BST rhs = getLargestBST(T->right);
+
+  if (lhs.isBST && rhs.isBST &&
+      T->val > lhs.max && T->val < rhs.min)
+    return BST{true, 1 + lhs.size + rhs.size, lhs.min, rhs.max};
+  return BST{false, std::max(lhs.size, rhs.size), 0, 0};
 }

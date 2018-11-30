@@ -123,6 +123,8 @@ void nonBST(vector<int> Vals, int a, int b) {
   cout << "Inorder DFS non-BST: ";
   Tree::inorder(T);
   cout << "\n";
+
+  cout << "Largest BST size: " << Tree::getLargestBST(T).size << "\n";
   cout << "---------------------------------------------\n";
 }
 
