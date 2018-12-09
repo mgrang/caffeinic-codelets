@@ -26,6 +26,7 @@ public:
 
   static void insert(Tree *T, int V);
   static void insertNonBST(Tree *T, int V);
+  static void insertAVL(Tree *T, int V);
   static void inorder(Tree *T);
   static void preorder(Tree *T);
   static void postorder(Tree *T);
@@ -46,6 +47,8 @@ public:
   static Tree *lowestCommonAncestor(Tree *T, int a, int b);
   static Tree *lowestCommonAncestorNonBST(Tree *T, int a, int b);
   static BST getLargestBST(Tree *T);
+  static int inorderPred(Tree *T);
+  static int inorderSucc(Tree *T);
 
   static void display(Tree *T);
   static void print(Tree *T);
@@ -482,4 +485,63 @@ BST Tree::getLargestBST(Tree *T) {
       T->val > lhs.max && T->val < rhs.min)
     return BST{true, 1 + lhs.size + rhs.size, lhs.min, rhs.max};
   return BST{false, std::max(lhs.size, rhs.size), 0, 0};
+}
+
+int Tree::inorderPred(Tree *T) {
+  if (!T->left)
+    return -1;
+
+  T = T->left;
+  while (T->right)
+    T = T->right;
+  return T->val;
+}
+
+int Tree::inorderSucc(Tree *T) {
+  if (!T->right)
+    return -1;
+
+  T = T->right;
+  while (T->left)
+    T = T->left;
+  return T->val;
+}
+
+void Tree::insertAVL(Tree *T, int V) {
+  if (isEmpty(T)) {
+    T->val = V;
+    T->parent = nullptr;
+    T->n = std::make_pair(0, 0);
+    return;
+  }
+
+  if (V < T->val) {
+    if (!T->left) {
+      T->left = new Tree(V, T);
+      T->n.first++;
+      T->left->n = std::make_pair(0, 0);
+    } else {
+      if (1 + T->n.first - T->n.second > 1) {
+        if (V > T->left->val) {
+          auto *newT = new Tree (V, T);
+          auto *oldLeftT = T->left;
+          T->left = newT;
+          newT->left = oldLeftT;
+        }
+
+        auto *oldLeftT = T->left;
+        oldLeftT->right = T;
+        T->left = nullptr;
+      }
+    }
+  }
+
+  else if (V > T->val) {
+    if (!T->right) {
+      T->right = new Tree(V, T);
+      T->n.second++;
+      T->right->n = std::make_pair(0, 0);
+    } else {
+    }
+  }
 }

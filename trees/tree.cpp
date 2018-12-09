@@ -52,6 +52,12 @@ void test1(vector<int> Vals, vector<int> Find, int k) {
   Tree::iterPostOrder(T);
   cout << "\n";
 
+  cout << "Inorder predecessor: " << Tree::inorderPred(T);
+  cout << "\n";
+
+  cout << "Inorder successor: " << Tree::inorderSucc(T);
+  cout << "\n";
+
   cout << "Reverse Level Order Print: ";
   Tree::reversePrint(T);
   cout << "\n";
@@ -128,6 +134,22 @@ void nonBST(vector<int> Vals, int a, int b) {
   cout << "---------------------------------------------\n";
 }
 
+void AVLTree(vector<int> Vals) {
+  Tree *T1 = new Tree();
+  for (auto v : Vals)
+    Tree::insert(T1, v);
+
+  cout << "Regular BST: \n";
+  Tree::print(T1);
+
+  Tree *T2 = new Tree();
+  for (auto v : Vals)
+    Tree::insertAVL(T2, v);
+
+  cout << "AVL Tree: \n";
+  Tree::print(T2);
+}
+
 int main() {
   test1({10, 15, 30, 3, 6, 5, 2, 9, 8}, {3, 8, 10, -1, -2}, 36);
   test1({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, {82, 50, 35, -1, -2}, 207);
@@ -145,4 +167,6 @@ int main() {
   nonBST({10, 15, 30, 3, 6, 5, 2, 9, 8}, 9, 8);
   nonBST({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, 30, 4);
   nonBST({3, 4, 5}, 3, 5);
+
+  AVLTree({1, 2, 3, 4, 5});
 }
