@@ -1,56 +1,165 @@
+#include <deque>
 #include <map>
-#include <set>
 #include <unordered_set>
 using namespace std;
 
-typedef map<int, set<int>> List;
+typedef vector<int> Vec;
+typedef unordered_set<int> USet;
+typedef deque<int> Deck;
+typedef map<int, USet> Points;
 
 class Graph {
 private:
-  List list;
+  Points points;
 
 public:
   Graph() {}
 
   void insert(int V, int E) {
-    set<int> edges;
-    if (list.count(V))
-      edges = list[V];
+    points[V].insert(E);
+  }
 
-    edges.insert(E);
-    list[V] = edges;
+  bool hasEdge(int V1, int V2) {
+    if (!points.count(V1))
+      return false;
+    return points[V1].count(V2);
+  }
 
-    if (!list.count(E))
-      list[E] = set<int>();
+  void remove(int V) {
+    if (!points.count(V))
+      return;
+
+    points.erase(V);
+
+    for (auto &p : points)
+      if (p.second.count(V))
+        p.second.erase(V);
   }
 
   void print() {
-    for (const auto &p : list) {
+    for (const auto &p : points) {
       for (const auto &q : p.second) {
         cout << p.first << "->" << q << "\n";
       }
     }
   }
 
-  void dfs(int V, vector<int> &stack) {
-    static unordered_set<int> visited;
-
+  void dfsHelper(int V, USet &visited) {
     if (visited.count(V))
       return;
 
     visited.insert(V);
-    for (const auto &p : list[V])
-      dfs(p, stack);
-
-    stack.push_back(V);
+    cout << V << " ";
+    for (const auto &p : points[V])
+      dfsHelper(p, visited);
   }
 
-  vector<int> topologicalSort() {
-    vector<int> stack;
+  void dfs() {
+    USet visited;
 
-    for (const auto &p : list)
-      dfs(p.first, stack);
+    for (const auto &p : points)
+      dfsHelper(p.first, visited);
+  }
 
-    return stack;
+  void dfsIter() {
+    USet visited;
+    Deck Q;
+
+    for (const auto &p : points) {
+      if (visited.count(p.first))
+        continue;
+
+      Q.push_back(p.first);
+
+      while (Q.size()) {
+        auto V = Q.front();
+        Q.pop_front();
+
+        if (visited.count(V))
+          continue;
+
+        visited.insert(V);
+        cout << V << " ";
+        for (const auto &p : points[V])
+          Q.push_front(p);
+      }
+    }
+  }
+
+  void bfsHelper(Deck &Q, USet &visited) {
+    while (Q.size()) {
+      auto V = Q.front();
+      Q.pop_front();
+
+      if (visited.count(V))
+        continue;
+
+      visited.insert(V);
+      cout << V << " ";
+
+      for (const auto &p : points[V])
+        Q.push_back(p);
+
+      bfsHelper(Q, visited);
+    }
+  }
+
+  void bfs() {
+    USet visited;
+    Deck Q;
+
+    for (const auto &p : points) {
+      Q.push_back(p.first);
+      bfsHelper(Q, visited);
+    }
+  }
+
+  void bfsIter() {
+    USet visited;
+    Deck Q;
+
+    for (const auto &p : points) {
+      if (visited.count(p.first))
+        continue;
+
+      Q.push_back(p.first);
+
+      while (Q.size()) {
+        auto V = Q.front();
+        Q.pop_front();
+
+        if (visited.count(V))
+          continue;
+
+        visited.insert(V);
+        cout << V << " ";
+        for (const auto &q : points[V])
+          Q.push_back(q);
+      }
+    }
+  }
+
+  void visit(int V, Vec &st, USet &visited) {
+    if (visited.count(V))
+      return;
+
+    visited.insert(V);
+    for (const auto &p : points[V])
+      visit(p, st, visited);
+
+    st.push_back(V);
+  }
+
+  void topologicalSort() {
+    USet visited;
+    Vec st;
+
+    for (const auto &p : points)
+      visit(p.first, st, visited);
+
+    while (st.size()) {
+      cout << st.back() << " ";
+      st.pop_back();
+    }
   }
 };
