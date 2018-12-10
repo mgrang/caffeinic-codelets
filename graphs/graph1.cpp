@@ -31,6 +31,9 @@ void test(vector<std::pair<int, int>> Points) {
   G.bfsIter();
   cout << "\n";
 
+  cout << "Has cycle: " << G.hasCycle();
+  cout << "\n";
+
   G.remove(5);
 
   for (const auto &p : Points)

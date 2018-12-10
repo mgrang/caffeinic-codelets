@@ -3,10 +3,10 @@
 #include <unordered_set>
 using namespace std;
 
-typedef vector<int> Vec;
-typedef unordered_set<int> USet;
-typedef deque<int> Deck;
-typedef map<int, USet> Points;
+using Vec = vector<int>;
+using USet = unordered_set<int>;
+using Deck = deque<int>;
+using Points = map<int, USet>;
 
 class Graph {
 private:
@@ -161,5 +161,40 @@ public:
       cout << st.back() << " ";
       st.pop_back();
     }
+  }
+
+  bool hasCycleHelper(int V, USet &visited, USet &current) {
+    bool isCycle = false;
+
+    if (visited.count(V))
+      return false;
+
+    visited.insert(V);
+    for (const auto &p : points[V]) {
+      if (current.count(p))
+        return true;
+
+      current.insert(p);
+      isCycle = hasCycleHelper(p, visited, current);
+      if (isCycle)
+        break;      
+    }
+
+    return isCycle;
+  } 
+
+  bool hasCycle() {
+    USet visited;
+    USet current;
+
+    for (const auto &p : points) {
+      current.insert(p.first);
+      bool isCycle = hasCycleHelper(p.first, visited, current);
+      if (isCycle)
+        return true;
+      current.clear();
+    }
+
+    return false;
   }
 };
