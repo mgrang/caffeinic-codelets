@@ -9,7 +9,7 @@ private:
     int rank;
     Node *parent;
 
-    Node(int d) : data(d), rank(0), parent(nullptr) {}
+    Node(int d) : data(d), rank(0), parent(this) {}
   };
 
   map<int, Node *> nodeMap;
@@ -22,9 +22,7 @@ public:
   }
 
   void makeSet(int data) {
-    Node *n = new Node(data);
-    n->parent= n;
-    nodeMap[data] = n;
+    nodeMap[data] = new Node(data);
   }
 
   void unionSet(int x, int y) {
