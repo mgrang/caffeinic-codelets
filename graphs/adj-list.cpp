@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "graph1.h"
+#include "adj-list.h"
 using namespace std;
 
 void test(vector<std::pair<int, int>> Points) {
