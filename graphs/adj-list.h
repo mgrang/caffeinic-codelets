@@ -15,8 +15,11 @@ private:
 public:
   Graph() {}
 
-  void insert(int V, int E) {
-    points[V].insert(E);
+  void insert(int V1, int V2) {
+    points[V1].insert(V2);
+
+    if (!points.count(V2))
+      points[V2] = USet();
   }
 
   bool hasEdge(int V1, int V2) {

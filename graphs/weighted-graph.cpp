@@ -11,6 +11,10 @@ void test(vector<vector<int>> Points) {
 
   G.print();
 
+  cout << "Kruskal's Minimum Spanning Tree:\n";
+  G.kruskalMinSpanningTree();
+  cout << "\n"; 
+
   cout << "--------------------------------------------------------------\n";
 }
 
