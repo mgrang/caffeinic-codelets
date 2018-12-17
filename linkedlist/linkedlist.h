@@ -89,6 +89,7 @@ public:
       }
 
       prev->next = nullptr;
+      tail = prev;
       node->erase();
       return;
     }
@@ -109,18 +110,22 @@ public:
   }
 
   void remove(Node *node) {
-    Node *prev;
-
-    while (node && node->next) {
-      node->data = node->next->data;
-      prev = node;
-      node = node->next;
-    }
-
-    if (node) {
+    if (node == head) {
+      head = node->next;
       node->erase();
-      prev->next = nullptr;
+      return;
     }
+
+    auto *curr = head;
+    auto *prev = node;
+
+    while (curr && curr != node) {
+      prev = curr;
+      curr = curr->next;
+    }
+
+    prev->next = node->next;
+    node->erase();
   }
 
   int getMid() {

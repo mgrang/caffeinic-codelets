@@ -35,6 +35,14 @@ void test(vector<int> nums) {
   L->remove(L->getHead());
   L->print();
 
+  cout << "Add 20, 30, 40, 50: ";
+  L->add(10);
+  L->add(20);
+  L->add(30);
+  L->add(40);
+  L->add(50);
+  L->print();
+
   cout << "Num of nodes: " << L->getNumNodes() << "\n";
 
   L->~LinkedList();
