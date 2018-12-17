@@ -35,12 +35,33 @@ void test(vector<int> nums) {
   L->remove(L->getHead());
   L->print();
 
-  cout << "Add 20, 30, 40, 50: ";
+  cout << "Add 10, 20, 30, 40, 50: ";
   L->add(10);
   L->add(20);
   L->add(30);
   L->add(40);
   L->add(50);
+  L->print();
+
+  cout << "3rd from end: " << L->getNthFromEnd(3) << "\n";
+  cout << "1st from end: " << L->getNthFromEnd(1) << "\n";
+  cout << "7th from end: " << L->getNthFromEnd(7) << "\n";
+
+  cout << "Is palindrome: " << L->isPalindrome() << "\n";
+
+  cout << "Add 40, 30, 20, 10, 1, 2: ";
+  L->add(40);
+  L->add(30);
+  L->add(20);
+  L->add(10);
+  L->add(1);
+  L->add(2);
+  L->print();
+
+  cout << "Is palindrome: " << L->isPalindrome() << "\n";
+
+  cout << "Pair-wise swap: ";
+  L->pairWiseSwap(L->getHead());
   L->print();
 
   cout << "Num of nodes: " << L->getNumNodes() << "\n";

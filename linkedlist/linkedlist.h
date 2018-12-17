@@ -181,4 +181,59 @@ public:
   int getNumNodes() {
     return numNodes;
   }
+
+  int getNthFromEnd(int n) {
+    if (n > numNodes)
+      return -1;
+
+    Node *fast = head;
+    Node *slow = head;
+    while (fast) {
+      fast = fast->next;
+      if (n == 0)
+        slow = slow->next;
+      else --n;
+    }
+
+    return slow->data;
+  }
+
+  bool isPalindrome() {
+    vector<int> st;
+    auto *node = head;
+    while (node) {
+      st.push_back(node->data);
+      node = node->next;
+    }
+
+    node = head;
+    while (node) {
+      if (node->data != st.back())
+        return false;
+
+      st.pop_back();
+      node = node->next;
+    }
+
+    return true;
+  }
+
+  void pairWiseSwap(Node *node) {
+    if (!node)
+      return;
+
+    if (node == head && node->next)
+      head = node->next;
+
+    if (node == tail)
+      return;
+
+    auto *nextNode = node->next;
+    auto *rest = nextNode->next;
+
+    nextNode->next = node;
+    node->next = rest->next ? rest->next : rest;
+
+    pairWiseSwap(rest);
+  }
 };
