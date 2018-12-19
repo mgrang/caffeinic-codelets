@@ -3,7 +3,7 @@
 #include "linkedlist.h"
 using namespace std;
 
-void test(vector<int> nums) {
+void test(const vector<int> &nums) {
   LinkedList *L = new LinkedList(nums);
 
   cout << "List: ";
@@ -48,7 +48,6 @@ void test(vector<int> nums) {
   cout << "7th from end: " << L->getNthFromEnd(7) << "\n";
 
   cout << "Is palindrome: " << L->isPalindrome() << "\n";
-
   cout << "Add 40, 30, 20, 10, 1, 2: ";
   L->add(40);
   L->add(30);
@@ -71,6 +70,24 @@ void test(vector<int> nums) {
   cout << "--------------------------------------------------------\n";
 }
 
+void test2(const vector<int> &nums1, const vector<int> &nums2) {
+  LinkedList *L1 = new LinkedList(nums1);
+  LinkedList *L2 = new LinkedList(nums2);
+
+  cout << "List1: ";
+  L1->print();
+
+  cout << "List2: ";
+  L2->print();
+
+  cout << "Intersection: ";
+  L1->getCommon(L1->getHead(), L2->getHead());
+
+  L1->~LinkedList();
+  L2->~LinkedList();
+}
+
 int main() {
   test({1, 2, 3, 4, 5});
+  test2({1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {2, 4, 8, 9});
 }

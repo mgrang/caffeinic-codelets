@@ -53,9 +53,23 @@ private:
     reverseHelper(rest, nextNode);
   }
 
+  int getLength(Node *a) {
+    auto *node = a;
+    int len = 0;
+    while (node) {
+      node = node->next;
+      ++len;
+    }
+    return len;
+  }
 
 public:
-  LinkedList(vector<int> nums) {
+  LinkedList() : head(nullptr), tail(nullptr) {};
+
+  LinkedList(const vector<int> &nums) {
+    head = nullptr;
+    tail = nullptr;
+
     for (const auto i : nums)
       add(i);
   }
@@ -235,5 +249,66 @@ public:
     node->next = rest->next ? rest->next : rest;
 
     pairWiseSwap(rest);
+  }
+
+  int getIntersection(Node *a, Node *b) {
+    auto len1 = getLength(a);
+    auto len2 = getLength(b);
+
+    if (!len1 || !len2)
+      return -1;
+
+    auto diff = len1 - len2;
+    if (diff < 0) {
+      auto *tmp = b;
+      b = a;
+      a = tmp;
+    }
+
+    while (diff) {
+      a = a->next;
+      --diff;
+    }
+
+    while (a && b) {
+      if (a == b)
+        return a->data;
+      a = a->next;
+      b = b->next;
+    }
+
+    return -1;
+  }
+
+  // Note: a and b have to be sorted lists.
+  void getCommon(Node *a, Node *b) {
+    if (!getLength(a) || !getLength(b))
+      return;
+
+    auto *nodeA = a;
+    auto *nodeB = b;
+
+    LinkedList *res = new LinkedList();
+
+    while (nodeA && nodeB) {
+      while (nodeA && nodeA->data < nodeB->data)
+        nodeA = nodeA->next;
+      while (nodeB && nodeB->data < nodeA->data)
+        nodeB = nodeB->next;
+      if (nodeA && nodeB && nodeA->data == nodeB->data) {
+        res->add(nodeA->data);
+        nodeA = nodeA->next;
+        nodeB = nodeB->next;
+      }
+    }
+
+    auto *nodeRes = res->head;
+    while (nodeRes) {
+      cout << nodeRes->data << "->";
+      nodeRes = nodeRes->next;
+    }
+    cout << "\n";
+
+    res->~LinkedList();
   }
 };
