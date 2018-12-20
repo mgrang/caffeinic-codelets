@@ -281,7 +281,9 @@ public:
   }
 
   // Note: a and b have to be sorted lists.
-  void getCommon(Node *a, Node *b) {
+  void getSortedIntersection(Node *b) {
+    auto *a = head;
+
     if (!getLength(a) || !getLength(b))
       return;
 
@@ -310,5 +312,71 @@ public:
     cout << "\n";
 
     res->~LinkedList();
+  }
+
+  void moveNToFront(int n) {
+    if (!n || n >= numNodes)
+      return;
+
+    n = numNodes - n;
+    auto *node = head;
+    while (n > 1 && node) {
+      node = node->next;
+      --n;
+    }
+
+    if (!node)
+      return;
+
+    auto *tmp = head;
+    head = node->next;
+    node->next = nullptr;
+    tail->next = tmp;
+    tail = node;
+  }
+
+  void sort() {
+    auto *curr = head;
+    auto *prev = head;
+    int count = numNodes;
+
+    while (curr && count--) {
+      if (curr->data == 0) {
+        if (curr == head) {
+          prev = curr;
+          curr = curr->next;
+
+        } else {
+          prev->next = curr->next;
+          curr->next = head;
+          head = curr;
+          curr = prev->next;
+        }
+
+      } else if (curr->data == 2) {
+        if (curr == head) {
+          auto *nextNode = curr->next;
+          head = nextNode;
+          tail->next = curr;
+          tail = curr;
+          if (curr)
+            curr->next = nullptr;
+          curr = nextNode;
+          prev = nextNode;
+
+        } else {
+          prev->next = curr->next;
+          tail->next = curr;
+          tail = curr;
+          if (curr)
+            curr->next = nullptr;
+          curr = prev->next;
+        }
+
+      } else {
+        prev = curr;
+        curr = curr->next;
+      }
+    }
   }
 };

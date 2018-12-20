@@ -4,7 +4,7 @@
 using namespace std;
 
 void test(const vector<int> &nums) {
-  LinkedList *L = new LinkedList(nums);
+  auto *L = new LinkedList(nums);
 
   cout << "List: ";
   L->print();
@@ -65,14 +65,22 @@ void test(const vector<int> &nums) {
 
   cout << "Num of nodes: " << L->getNumNodes() << "\n";
 
+  cout << "Move 1 to front: ";
+  L->moveNToFront(1);
+  L->print();
+
+  cout << "Move 2 to front: ";
+  L->moveNToFront(2);
+  L->print();
+
   L->~LinkedList();
 
   cout << "--------------------------------------------------------\n";
 }
 
 void test2(const vector<int> &nums1, const vector<int> &nums2) {
-  LinkedList *L1 = new LinkedList(nums1);
-  LinkedList *L2 = new LinkedList(nums2);
+  auto *L1 = new LinkedList(nums1);
+  auto *L2 = new LinkedList(nums2);
 
   cout << "List1: ";
   L1->print();
@@ -81,13 +89,30 @@ void test2(const vector<int> &nums1, const vector<int> &nums2) {
   L2->print();
 
   cout << "Intersection: ";
-  L1->getCommon(L1->getHead(), L2->getHead());
+  L1->getSortedIntersection(L2->getHead());
 
   L1->~LinkedList();
   L2->~LinkedList();
+  cout << "--------------------------------------------------------\n";
+}
+
+void test3(vector<int> nums) {
+  auto *L = new LinkedList(nums);
+
+  cout << "List: ";
+  L->print();
+
+  cout << "Sorted list: ";
+  L->sort();
+  L->print();
+
+  L->~LinkedList();
+
+  cout << "--------------------------------------------------------\n";
 }
 
 int main() {
   test({1, 2, 3, 4, 5});
   test2({1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {2, 4, 8, 9});
+  test3({2, 1, 2, 1, 1, 2, 0, 1, 0});
 }
