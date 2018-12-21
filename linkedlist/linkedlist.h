@@ -16,13 +16,16 @@ private:
     Node *next;
     LinkedList *list;
 
-    Node(int d, LinkedList *L) : data(d), next(nullptr), list(L) {
+    Node(int d, LinkedList *L, bool isAddFront = false)
+      : data(d), next(nullptr), list(L) {
       if (!list->head)
         list->head = this;
 
-      if (list->tail)
-        list->tail->next = this;
-      list->tail = this;
+      if (!isAddFront) {
+        if (list->tail)
+          list->tail->next = this;
+        list->tail = this;
+      }
 
       ++list->numNodes;
     }
@@ -63,6 +66,24 @@ private:
     return len;
   }
 
+  int getSumHelper(Node *a, Node *b, LinkedList *res) {
+    if (!a || !b)
+      return 0;
+
+    if (!a->next && !b->next) {
+      res->add(a->data + b->data);
+      return 0;
+    }
+
+    int carry = getSumHelper(a->next, b->next, res);
+
+    int sum = a->data + b->data + carry;
+
+    res->addFront(sum % 10);
+//    res->add(sum % 10);
+    return sum / 10;
+  }
+
 public:
   LinkedList() : head(nullptr), tail(nullptr) {};
 
@@ -84,6 +105,14 @@ public:
 
   void add(int d) {
     new Node(d, this);
+  }
+
+  void addFront(int d) {
+    auto *node = new Node(d, this, /* isAddFront */ true);
+    if (head) {
+      node->next = head;
+      head = node;
+    }
   }
 
   void remove(int d) {
@@ -378,5 +407,24 @@ public:
         curr = curr->next;
       }
     }
+  }
+
+  LinkedList *getSum(LinkedList *L) {
+    if (!L)
+      return this;
+
+    auto *a = head;
+    auto *b = L->getHead();
+
+    if (!a)
+      return L;
+    if (!b)
+      return this;
+
+    LinkedList *res = new LinkedList();
+    int carry = getSumHelper(a, b, res);
+    if (carry)
+      res->addFront(carry);
+    return res;
   }
 };

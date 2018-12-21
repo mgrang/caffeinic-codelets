@@ -111,8 +111,29 @@ void test3(vector<int> nums) {
   cout << "--------------------------------------------------------\n";
 }
 
+void test4(vector<int> nums1, vector<int> nums2) {
+  auto *L1 = new LinkedList(nums1);
+  auto *L2 = new LinkedList(nums2);
+
+  cout << "List1: ";
+  L1->print();
+
+  cout << "List2: ";
+  L2->print();
+
+  cout << "Addition: ";
+  auto *L3 = L1->getSum(L2);
+  L3->print();
+
+  L1->~LinkedList();
+  L2->~LinkedList();
+
+  cout << "--------------------------------------------------------\n";
+}
+
 int main() {
   test({1, 2, 3, 4, 5});
   test2({1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {2, 4, 8, 9});
   test3({2, 1, 2, 1, 1, 2, 0, 1, 0});
+  test4({5, 6, 3}, {8, 4, 2});
 }
