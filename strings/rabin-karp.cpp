@@ -16,7 +16,7 @@ unsigned getHash(unsigned hash, unsigned curr,
 
 int strStr(string haystack, string needle) {
   if (needle.length() == 0)
-    return 0;
+    return -1;
   
   if (needle.length() > haystack.length())
     return -1;
@@ -46,6 +46,19 @@ int strStr(string haystack, string needle) {
   return -1;
 }
 
+void test(string s, string t) {
+  cout << "Str: " << s << ", Pat: " << t << ", Found at idx: " << strStr(s, t) << "\n";
+}
+
 int main() {
-  cout << "Output: " << strStr("mississippi", "sipp") << "\n";
+  test("mississippi", "sipp");
+  test("mississippi", "misS");
+  test("mississippi", "mis");
+  test("mississippi", "iss");
+  test("mississippi", "pi");
+  test("mississippi", "mississippi");
+  test("m", "mississippi");
+  test("m", "m");
+  test("m", "");
+  test("", "");
 }
