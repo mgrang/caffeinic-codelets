@@ -66,21 +66,27 @@ private:
     return len;
   }
 
-  int getSumHelper(Node *a, Node *b, LinkedList *res) {
+  int getSumHelper(Node *a, Node *b, LinkedList *res, int lenA = 0, int lenB = 0) {
+    if (lenA > lenB) {
+      int carry = getSumHelper(a->next, b, res, --lenA, lenB);
+      int sum = a->data + carry;
+      res->addFront(sum % 10);
+      return sum / 10;
+    }
+
     if (!a || !b)
       return 0;
 
     if (!a->next && !b->next) {
-      res->add(a->data + b->data);
-      return 0;
+      int sum = a->data + b->data;
+      res->add(sum % 10);
+      return sum / 10;
     }
 
     int carry = getSumHelper(a->next, b->next, res);
-
     int sum = a->data + b->data + carry;
 
     res->addFront(sum % 10);
-//    res->add(sum % 10);
     return sum / 10;
   }
 
@@ -421,10 +427,17 @@ public:
     if (!b)
       return this;
 
+    if (getLength(b) > getLength(a)) {
+      auto *tmp = a;
+      a = b;
+      b = tmp;
+    }
+
     LinkedList *res = new LinkedList();
-    int carry = getSumHelper(a, b, res);
+    int carry = getSumHelper(a, b, res, getLength(a), getLength(b));
     if (carry)
       res->addFront(carry);
+
     return res;
   }
 };
