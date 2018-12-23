@@ -1,46 +1,52 @@
+#include <cmath>
 #include <iostream>
 using namespace std;
 
-const unsigned BASE = 257;
-const unsigned MOD = 1007;
+const unsigned PRIME = 101;
 
-unsigned getHash(unsigned hash, unsigned curr) {
-  return (hash * BASE + curr) % MOD;
+unsigned getHash(unsigned curr, unsigned power) {
+  return curr * pow(PRIME, power);
 }
 
-unsigned getHash(unsigned hash, unsigned curr,
-                 unsigned first, unsigned power) {
-  int h = getHash(hash, curr) - ((first * power) % MOD);
-  return h < 0 ? h + MOD : h;
+unsigned getHash(unsigned hash, unsigned curr, unsigned power, unsigned first) {
+  return (hash - first) / PRIME + getHash(curr, power);
 }
 
 int strStr(string haystack, string needle) {
+  // Assume empty needle is not in the haystack.
   if (needle.length() == 0)
     return -1;
-  
+
+  // Needle has to be smaller than the haystack.
   if (needle.length() > haystack.length())
     return -1;
   
-  unsigned patHash = 0;
-  unsigned strHash = 0;
-  unsigned power = 1;
+  unsigned needHash = 0;
+  unsigned hayHash = 0;
+  unsigned power = 0;
   int i = 0;
-  while (i < needle.length()) {
-    patHash = getHash(patHash, needle[i]);
-    strHash = getHash(strHash, haystack[i]);
-    power = (power * BASE) % MOD;
-    i++;
-  }
-  
-  if (strHash == patHash)
-    return 111;
 
+  // Calculate hashes for the needle and haystack[0:needle.length()].
+  while (i < needle.length()) {
+    needHash += getHash(needle[i], power);
+    hayHash += getHash(haystack[i], power);
+    ++power;
+    ++i;
+  }
+
+  // We found the needle at index 0.
+  if (hayHash == needHash)
+    return 0;
+
+  // Calculate rolling hash for the rest of the haystack.
   while (i < haystack.length()) {
-    strHash = getHash(strHash, haystack[i],
-                      haystack[i - needle.length()], power);
-    if (strHash == patHash)
+    int firstIdx = i - needle.length();
+    hayHash = getHash(hayHash, haystack[i], needle.length() - 1, haystack[firstIdx]);
+
+    if (hayHash == needHash)
       return i - needle.length() + 1;
-    i++;
+
+    ++i;
   }
   
   return -1;
