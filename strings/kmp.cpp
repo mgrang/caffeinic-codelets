@@ -1,17 +1,10 @@
 #include <cmath>
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int strStr(string haystack, string needle) {
-  // Assume empty needle is not in the haystack.
-  if (needle.length() == 0)
-    return -1;
-
-  // Needle has to be smaller than the haystack.
-  if (needle.length() > haystack.length())
-    return -1;
-
-  int match[needle.length()];
+vector<int> getMatchTable(string needle) {
+  vector<int> match (needle.length());
   int i = 1;
   int j = 0;
   match[0] = 0;
@@ -29,10 +22,24 @@ int strStr(string haystack, string needle) {
     ++i;
   }
 
+  return match;
+}
+
+int strStr(string haystack, string needle) {
+  // Assume empty needle is not in the haystack.
+  if (needle.length() == 0)
+    return -1;
+
+  // Needle has to be smaller than the haystack.
+  if (needle.length() > haystack.length())
+    return -1;
+
+  auto match = getMatchTable(needle);
+
   int h = haystack.length();
   int n = needle.length();
-  i = 0;
-  j = 0;
+  int i = 0;
+  int j = 0;
 
   while (i < h) {
     while (i < h && j < n && needle[j] == haystack[i]) {
@@ -66,7 +73,6 @@ void test(string s, string t) {
 }
 
 int main() {
-  test("aaabaaaa", "aaaa");
   test("mississippi", "sipp");
   test("mississippi", "misS");
   test("mississippi", "mis");
