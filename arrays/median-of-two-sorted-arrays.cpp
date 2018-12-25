@@ -1,13 +1,8 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include "util.h"
 using namespace std;
-
-void print(vector<int> V) {
-  for (auto i : V)
-    cout << i << " ";
-  cout << "\n";
-}
 
 double getMedian(vector<int> &a, vector<int> &b) {
   int n = a.size();
