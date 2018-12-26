@@ -4,8 +4,9 @@ if [[ -z $1 ]]; then
 fi
 
 src=$1
+shift
 echo "Building $src"
-g++ -std=c++11 $src
+g++ -std=c++11 $src $@
 
 if [[ $? -eq 0 ]]; then
   ./a.out

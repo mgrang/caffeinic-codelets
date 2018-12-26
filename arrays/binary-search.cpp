@@ -3,7 +3,7 @@
 #include "util.h"
 using namespace std;
 
-int binarySearch(vector<int> V, int k, int left, int right) {
+int binarySearch(vector<int> &V, int k, int left, int right) {
   cout << "Inside Binary Search\n";
 
   if (!V.size())
