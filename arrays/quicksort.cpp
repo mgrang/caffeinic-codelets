@@ -6,6 +6,33 @@ using namespace std;
 int partition(vector<int> &V, int lo, int hi) {
   int pivot = V[hi];
   int i = lo;
+  int j = hi - 1;
+
+  while (i < j) {
+    while (i < j && V[i] <= pivot)
+      ++i;
+
+    while (i < j && V[j] >= pivot)
+      --j;
+
+    if (i < j) {
+      swap(V, i, j);
+      ++i;
+      --j;
+    }
+  }
+
+  if (V[i] <= V[hi])
+    ++i;
+
+  if (i != hi)
+    swap(V, i, hi);  
+  return i;
+}
+
+int partition2(vector<int> &V, int lo, int hi) {
+  int pivot = V[hi];
+  int i = lo;
 
   for (int j = lo; j < hi; ++j) {
     if (V[j] < pivot) {
