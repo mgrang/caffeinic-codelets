@@ -79,4 +79,43 @@ public:
 
     removeHelper(root, word);
   }
+
+  void displayHelper(Node *node, char word[], int idx = 0) {
+    if (node->isEnd) {
+      word[idx] = '\0';
+      cout << word << " ";
+    }
+
+    for (auto &pair : node->letters) {
+      word[idx] = pair.first;
+      displayHelper(pair.second, word, idx + 1);
+    }
+  }
+
+  void display() {
+    char word[20];
+    displayHelper(root, word);
+    cout << "\n";
+  }
+
+  void showAllWords(string prefix) {
+    if (!prefix.length())
+      return;
+
+    string currWord;
+    auto *node = root;
+
+    for (auto w : prefix) {
+      if (!node->letters.count(w))
+        return;
+      currWord += w;
+      node = node->letters[w];
+    }
+
+    char word[20];
+    for (int i = 0; i < currWord.length(); ++i)
+      word[i] = currWord[i];
+
+    displayHelper(node, word, currWord.length());
+  }
 };

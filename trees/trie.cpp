@@ -9,6 +9,9 @@ void test(vector<string> words) {
   for (auto &word: words)
     T.insert(word);
 
+  cout << "Trie words: ";
+  T.display();
+
   cout << "hasPrefix(a): " << T.hasPrefix("a") << "\n";
   cout << "hasPrefix(abc): " << T.hasPrefix("abc") << "\n";
   cout << "hasPrefix(ab): " << T.hasPrefix("ab") << "\n";
@@ -35,8 +38,24 @@ void test(vector<string> words) {
   cout << "hasWord(lmno): " << T.hasWord("lmno") << "\n";
   cout << "hasWord(xy): " << T.hasWord("xy") << "\n";
   cout << "hasWord(abd): " << T.hasWord("abd") << "\n";
+
+  cout << "\nWords with prefix a: ";
+  T.showAllWords("a");
+  cout << "\nWords with prefix ab: ";
+  T.showAllWords("ab");
+  cout << "\nWords with prefix xyz: ";
+  T.showAllWords("xyz");
+  cout << "\nWords with prefix abx: ";
+  T.showAllWords("abx");
+  cout << "\nWords with prefix abcde: ";
+  T.showAllWords("abcde");
+  cout << "\nWords with prefix z: ";
+  T.showAllWords("z");
+  cout << "\nWords with prefix (empty string): ";
+  T.showAllWords("");
+  cout << "\n";
 }
 
 int main() {
-  test({"abc", "abd", "abcd", "a", "ab", "bcd", "xyz"});
+  test({"xyz", "abc", "abd", "abcd", "a", "ab", "bcd"});
 }
