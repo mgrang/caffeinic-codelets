@@ -54,6 +54,7 @@ public:
   static void print(Tree *T);
   static void reversePrint(Tree *T);
   static void spiralPrint(Tree *T);
+  static void levelOrderPrint(Tree *T);
 
 private:
   static void destroy(Tree *T);
@@ -62,6 +63,7 @@ private:
   static void reversePrintHelper(vector<Tree *> &V, int idx);
   static std::pair<bool, vector<int>> getPathSum(Tree *T, int k, vector<int> &nums);
   static bool isBSTHelper(Tree *T, int min, int max);
+  static void levelOrderPrint(std::deque<Tree *> Q);
 };
 
 void Tree::destroy(Tree *T) {
@@ -449,6 +451,39 @@ void Tree::spiralPrint(Tree *T) {
   }
 }
 
+void Tree::levelOrderPrint(std::deque<Tree *> Q) {
+  if (!Q.size())
+    return;
+
+  auto *T = Q.front();
+  Q.pop_front();
+
+  if (!T)
+    cout << "\n";
+
+  else {
+    display(T);
+    if (T->left)
+      Q.push_back(T->left);
+    if (T->right)
+      Q.push_back(T->right);
+    if (Q.size() && !Q.front())
+      Q.push_back(nullptr);
+  }
+
+  levelOrderPrint(Q);
+}
+
+void Tree::levelOrderPrint(Tree *T) {
+  if (!T)
+    return;
+
+  std::deque<Tree *> Q;
+  Q.push_back(T);
+  Q.push_back(nullptr);
+  levelOrderPrint(Q);
+}
+
 Tree *Tree::lowestCommonAncestor(Tree *T, int a, int b) {
   if (T->val < std::min(a, b))
     return lowestCommonAncestor(T->right, a, b);
@@ -507,6 +542,7 @@ int Tree::inorderSucc(Tree *T) {
   return T->val;
 }
 
+#if 0
 void Tree::insertAVL(Tree *T, int V) {
   if (isEmpty(T)) {
     T->val = V;
@@ -545,3 +581,4 @@ void Tree::insertAVL(Tree *T, int V) {
     }
   }
 }
+#endif

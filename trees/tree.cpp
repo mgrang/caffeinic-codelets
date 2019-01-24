@@ -66,6 +66,10 @@ void test1(vector<int> Vals, vector<int> Find, int k) {
   Tree::spiralPrint(T);
   cout << "\n";
 
+  cout << "Level Order Print: ";
+  Tree::levelOrderPrint(T);
+  cout << "\n";
+
   for (auto i : Find) {
     if (Tree::search(T, i))
       cout << "Key found: " << i;
@@ -134,6 +138,7 @@ void nonBST(vector<int> Vals, int a, int b) {
   cout << "---------------------------------------------\n";
 }
 
+#if 0
 void AVLTree(vector<int> Vals) {
   Tree *T1 = new Tree();
   for (auto v : Vals)
@@ -149,6 +154,7 @@ void AVLTree(vector<int> Vals) {
   cout << "AVL Tree: \n";
   Tree::print(T2);
 }
+#endif
 
 int main() {
   test1({10, 15, 30, 3, 6, 5, 2, 9, 8}, {3, 8, 10, -1, -2}, 36);
@@ -168,5 +174,5 @@ int main() {
   nonBST({50, 30, 25, 75, 82, 28, 63, 70, 4, 43, 74, 35}, 30, 4);
   nonBST({3, 4, 5}, 3, 5);
 
-  AVLTree({1, 2, 3, 4, 5});
+//  AVLTree({1, 2, 3, 4, 5});
 }
