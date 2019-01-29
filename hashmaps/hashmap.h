@@ -25,18 +25,19 @@ public:
 
   V get(K key) {
     int hashCode = getHash(key);
-    const auto *node = map[hashCode];
+    auto *node = map[hashCode];
 
     while (node) {
       if (node->key == key)
         return node->value;
+      node = node->next;
     }
     return nullptr;
   }
 
   bool put(K key, V value) {
     int hashCode = getHash(key);
-    const auto *node = map[hashCode];
+    auto *node = map[hashCode];
 
     while (node && node->next) {
       if (node->key == key)
