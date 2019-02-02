@@ -10,7 +10,7 @@ class Trie {
     unordered_map<char, Node *> letters;
     bool isEnd;
 
-    Node(bool e = false) : letters({}), isEnd(e) {}
+    Node() : letters({}), isEnd(false) {}
   };
 
 private:
@@ -23,15 +23,13 @@ public:
     auto *node = root;
     for (int i = 0; i != word.length(); ++i) {
       auto w = word[i];
-      auto e = i == word.length() - 1;
 
       if (!node->letters.count(w))
-        node->letters.insert({w, new Node(e)});
+        node->letters.insert({w, new Node()});
       node = node->letters[w];
 
-      if (e)
-        node->isEnd = true;
     }
+    node->isEnd = true;
   }
 
   bool hasPrefix(string word) {
@@ -80,21 +78,19 @@ public:
     removeHelper(root, word);
   }
 
-  void displayHelper(Node *node, char word[], int idx = 0) {
-    if (node->isEnd) {
-      word[idx] = '\0';
-      cout << word << " ";
-    }
+  void displayHelper(Node *node, string s = "") {
+    if (!node)
+      return;
 
-    for (auto &pair : node->letters) {
-      word[idx] = pair.first;
-      displayHelper(pair.second, word, idx + 1);
-    }
+    if (node->isEnd)
+      cout << s << " ";
+
+    for (const auto &pair : node->letters)
+      displayHelper(pair.second, s + pair.first);
   }
 
   void display() {
-    char word[20];
-    displayHelper(root, word);
+    displayHelper(root);
     cout << "\n";
   }
 
@@ -112,10 +108,6 @@ public:
       node = node->letters[w];
     }
 
-    char word[20];
-    for (int i = 0; i < currWord.length(); ++i)
-      word[i] = currWord[i];
-
-    displayHelper(node, word, currWord.length());
+    displayHelper(node, currWord);
   }
 };
