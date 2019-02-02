@@ -52,32 +52,6 @@ public:
     return node->isEnd;
   }
 
-  void removeHelper(Node *node, string word, int idx = 0) {
-    if (idx == word.length()) {
-      if (!node->letters.size())
-        delete node;
-      else node->isEnd = false;
-      return;
-    }
-
-    auto w = word[idx];
-    removeHelper(node->letters[w], word, ++idx);
-    if (!node)
-      return;
-    if (!node->letters[w]->letters.size()) {
-      if (!node->letters.size())
-        delete node;
-      else node->letters.erase(w);
-    }
-  }
-
-  void remove(string word) {
-    if (!hasWord(word))
-      return;
-
-    removeHelper(root, word);
-  }
-
   void displayHelper(Node *node, string s = "") {
     if (!node)
       return;
@@ -109,5 +83,42 @@ public:
     }
 
     displayHelper(node, currWord);
+  }
+
+  void removeAll(Node *node) {
+    if (!node)
+      return;
+
+    if (!node->letters.size()) {
+      delete node;
+      return;
+    }
+
+    for (auto &pair : node->letters) {
+      auto *tmp = pair.second;
+      delete node->letters[pair.first];
+      removeAll(tmp);
+    }
+  }
+
+  void removeHelper(Node *node, string word) {
+    if (!node)
+      return;
+
+    for (const auto w : word) {
+      if (!node->letters.count(w))
+        return;
+      auto *tmp = node->letters[w];
+      node->letters.erase(w);
+      if (!node->letters.size())
+        delete node;
+      node = tmp;
+    }
+
+    removeAll(node);
+  }
+
+  void remove(string word) {
+    removeHelper(root, word);
   }
 };
