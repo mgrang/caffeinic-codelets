@@ -39,11 +39,13 @@ private:
   };
 
 private:
-  void reverseHelper(Node *curr, Node *prev) {
-    head = curr;
+  void reverse(Node *curr, Node *prev = nullptr) {
+    if (!curr)
+      return;
 
     if (!curr->next) {
       curr->next = prev;
+      head = curr;
       return;
     }
 
@@ -53,7 +55,8 @@ private:
     nextNode->next = curr;
     curr->next = prev;
 
-    reverseHelper(rest, nextNode);
+    head = nextNode;
+    reverse(rest, nextNode);
   }
 
   int getLength(Node *a) {
@@ -212,11 +215,6 @@ public:
       node = node->next;
     }
     cout << "\n";
-  }
-
-  void reverse() {
-    tail = head;
-    reverseHelper(head, nullptr);
   }
 
   Node *getHead() {
@@ -439,5 +437,29 @@ public:
       res->addFront(carry);
 
     return res;
+  }
+
+  void reverse() {
+    auto *oldHead = head;
+    reverse(head);
+    tail = oldHead;
+  }
+
+  void reverse(int k) {
+    if (k <= 0)
+      return;
+
+    auto *node = head;
+    while (node && --k)
+      node = node->next;
+
+    if (!node)
+      return;
+
+    auto *rest = node->next;
+    node->next = nullptr;
+    auto *oldHead = head;
+    reverse(head);
+    oldHead->next = rest;
   }
 };

@@ -13,6 +13,25 @@ void test(const vector<int> &nums) {
   L->reverse();
   L->print();
 
+  cout << "Reverse first 1: ";
+  L->reverse(1);
+  L->print();
+
+  cout << "Reverse first 2: ";
+  L->reverse(2);
+  L->print();
+
+  cout << "Reverse first 3: ";
+  L->reverse(3);
+  L->print();
+
+  cout << "Reverse first 4: ";
+  L->reverse(4);
+  L->print();
+  cout << "Reverse first 5: ";
+  L->reverse(5);
+  L->print();
+
   cout << "Middle node: " << L->getMid() << "\n";
 
   cout << "Remove 3: ";
