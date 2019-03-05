@@ -61,7 +61,7 @@ private:
   static Tree* getRootHelper(Tree *T);
   static void printHelper(std::deque<Tree *> &Q, int count, int limit);
   static void reversePrintHelper(vector<Tree *> &V, int idx);
-  static std::pair<bool, vector<int>> getPathSum(Tree *T, int k, vector<int> &nums);
+  static bool getPathSum(Tree *T, int k, vector<int> &nums);
   static bool isBSTHelper(Tree *T, int min, int max);
   static void levelOrderPrint(std::deque<Tree *> Q);
 };
@@ -328,35 +328,33 @@ void Tree::print(Tree *T) {
   cout << "\n";
 }
 
-std::pair<bool, vector<int>>
-Tree::getPathSum(Tree *T, int k, vector<int> &nums) {
+bool Tree::getPathSum(Tree *T, int k, vector<int> &nums) {
   if (!T || isEmpty(T))
-    return std::make_pair(false, nums);
+    return false;
 
   if (isLeafNode(T) && T->val == k) {
     nums.push_back(T->val);
-    return std::make_pair(true, nums);
+    return true;
   }
 
-  auto leftSum = getPathSum(T->left, k - T->val, nums);
-  if (leftSum.first) {
+  if (getPathSum(T->left, k - T->val, nums)) {
     nums.push_back(T->val);
-    return std::make_pair(true, nums);
+    return true;
   }
 
-  auto rightSum = getPathSum(T->right, k - T->val, nums);
-  if (rightSum.first) {
+  if (getPathSum(T->right, k - T->val, nums)) {
     nums.push_back(T->val);
-    return std::make_pair(true, nums);
+    return true;
   }
 
-  return std::make_pair(false, nums);
+  return false;
 }
 
 std::pair<bool, vector<int>>
 Tree::hasPathSum(Tree *T, int k) {
   vector<int> nums;
-  return getPathSum(T, k, nums);
+  bool res = getPathSum(T, k, nums);
+  return std::make_pair(res, nums);
 }
 
 bool Tree::isLeafNode(Tree *T) {
