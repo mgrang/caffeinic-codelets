@@ -18,6 +18,22 @@ bool isDigit(char c) {
   return c >= '0' && c <= '9';
 }
 
+int doMulOrDiv(vector<int> &nums, vector<char> &ops) {
+  int num2 = nums.back();
+  nums.pop_back();
+
+  int num1 = nums.back();
+  nums.pop_back();
+
+  char op = ops.back();
+  ops.pop_back();
+
+  return op == '*' ?
+         num1 * num2 :
+         num1 / num2;
+}
+
+
 int calculate(string s) {
   vector<int> nums;
   vector<char> ops;
@@ -42,40 +58,28 @@ int calculate(string s) {
 
       if (i < s.length() - 1 && isOperator(s[i + 1])) {
         if (ops.size() && isMulOrDiv(ops.back())) {
-          int num2 = nums.back();
-          nums.pop_back();
-
-          int num1 = nums.back();
-          nums.pop_back();
-
-          char op = ops.back();
-          ops.pop_back();
-
-          int res = op == '*' ?
-                    num1 * num2 :
-                    num1 / num2;
-
+          int res = doMulOrDiv(nums, ops);
           nums.push_back(res);
         }
       }
     }
   }
 
-  int res = nums.back();
-  nums.pop_back();
+  if (ops.size() && isMulOrDiv(ops.back())) {
+    int res = doMulOrDiv(nums, ops);
+    nums.push_back(res);
+  }
 
-  while (ops.size()) {
-    int num1 = nums.back();
-    nums.pop_back();
-
-    char op = ops.back();
-    ops.pop_back();
+  int res = nums[0];
+  for (int i = 1; i < nums.size(); ++i) {
+    int num2 = nums[i];
+    char op = ops[i - 1];
 
     switch(op) {
-      case '+': res = num1 + res; break;
-      case '-': res = num1 - res; break;
-      case '*': res = num1 * res; break;
-      case '/': res = num1 / res; break;
+      case '+': res += num2; break;
+      case '-': res -= num2; break;
+      case '*': res *= num2; break;
+      case '/': res /= num2; break;
     }
   }
   return res;
@@ -91,4 +95,9 @@ int main() {
   test("3/2");
   test("3+5/2");
   test("1*2*3*4");
+  test("1-1+1");
+  test("1+1-1");
+  test("0-2147483647");
+  test("3+2*2");
+  test("14-3/2");
 }
